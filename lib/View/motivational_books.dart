@@ -14,11 +14,22 @@ class _MotivationalBooksState extends State<MotivationalBooks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
-
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("Motivational Books"),
-          backgroundColor: Colors.green,
+          title: Text(
+            "Motivational Books",
+            style: TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
         body: FutureBuilder<String>(
           future:
@@ -29,10 +40,8 @@ class _MotivationalBooksState extends State<MotivationalBooks> {
               List? books = jsonMap?.keys.toList();
 
               final filtered = jsonMap?.keys
-                  .where(
-                      (path) => path.startsWith('assets/motivational_books/'))
+                  .where((path) => path.startsWith('assets/Motivational_Book/'))
                   .toList();
-              print("khakha$filtered");
 
               return ListView.builder(
                 itemCount: filtered?.length,
@@ -43,10 +52,12 @@ class _MotivationalBooksState extends State<MotivationalBooks> {
                   title = title.split(".").first;
                   return Container(
                     padding: EdgeInsets.all(8),
-                    margin: EdgeInsets.all(8),
+                    margin: EdgeInsets.fromLTRB(20, 8, 20, 8),
                     decoration: BoxDecoration(
-                        border: Border.all(width: 1),
-                        borderRadius: BorderRadius.circular(8)),
+                            borderRadius: BorderRadius.circular(29),
+                              color: Colors.grey[200],
+                              // border: Border.all(color: Colors.grey)
+                                ),
                     child: ListTile(
                       title: Text(title),
                       // subtitle: Text("path: $path"),
@@ -64,6 +75,8 @@ class _MotivationalBooksState extends State<MotivationalBooks> {
               return Text("Sorry No Books Found");
             }
           },
-        ));
+          
+        ),
+        );
   }
 }

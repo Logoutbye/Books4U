@@ -87,7 +87,7 @@ class _ContactScreenState extends State<ContactScreen> {
                         },
                       ),
                       Text(
-                        "muhammadbilal03478@gmail.com",
+                        "Mail Us",
                         style: TextStyle(
                             fontSize: 15,
                             color: Color.fromARGB(255, 255, 255, 255),
@@ -109,11 +109,14 @@ class _ContactScreenState extends State<ContactScreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.fromLTRB(8, 8, 32,8),
                 child: Align(
                   
                   alignment: Alignment.bottomRight,
-                  child: Text("Developed by Team Kawiish")),
+                  child: Text("Developed by Team Kawiish",style: TextStyle(fontSize: 22,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  ),
+)),
               ),
             ],
           )

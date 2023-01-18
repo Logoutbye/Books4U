@@ -36,30 +36,45 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  store_redirect: ^2.0.1
+  # store_redirect: ^2.0.1
   syncfusion_flutter_pdfviewer: ^20.4.42
-  url_launcher: ^6.1.7
+  # url_launcher: ^6.1.7
   flutter_phone_direct_caller: ^2.1.0
   shared_preferences: ^2.0.15
   flutter_qiblah: ^2.1.0
-  flutter_svg: ^0.21.0-nullsafety.0
+  flutter_svg: ^1.1.6
   geolocator: ^9.0.1
   floating_draggable_widget: ^2.1.2
-  hijri: ^3.0.0
   file_picker: ^5.2.4
-  
+
   
   
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_native_splash: ^2.2.17
+  
+flutter_native_splash:
+ color: "#ffffff"
+ image: assets/images/app_icon.png
+ android: true
+ ios: true 
+
+#   flutter_launcher_icons: ^0.11.0
+
+# flutter_icons:
+#   android: true
+#   ios: true
+#   image_path: "assets/images/app_icon.png"
+
+
+ 
   
 
 # For information on the generic Dart part of this file, see the
@@ -77,11 +92,16 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/islamic_books/fiqa/
-    - assets/islamic_books/Hadits/
-    - assets/islamic_books/historic_books/
-    - assets/islamic_books/Tafseer/
-    - assets/motivational_books/
+    - assets/islamic_books/Arabic/historic_books/
+    - assets/islamic_books/English/historic_books/
+    - assets/islamic_books/Pashto/historic_books/
+    - assets/islamic_books/Urdu/Darsi/
+    - assets/islamic_books/Urdu/Fathwa/
+    - assets/islamic_books/Urdu/fiqa/
+    - assets/islamic_books/Urdu/Hadits/
+    - assets/islamic_books/Urdu/historic_books/
+    - assets/islamic_books/Urdu/Tafseer/
+    - assets/Motivational_Book/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,5 +1,6 @@
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:islamic_book_app/View/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TasbheeCounter extends StatefulWidget {
@@ -32,7 +33,7 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
     setState(() {
       // _counter = prefs.setInt('counter', 0).then((bool success) {
          _counter = prefs.clear().then((bool) {
-        return _counter;
+        return 0;
       }).onError((error, stackTrace) => _counter);
     });
   }
@@ -50,7 +51,7 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
     return FloatingDraggableWidget(
 
       floatingWidget: FloatingActionButton(
-        backgroundColor: Colors.green,
+        backgroundColor: AppColor.kbgColor,
         onPressed: () {
           _incrementCounter();
           isPressed = true;
@@ -86,8 +87,14 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
       },
       mainScreenWidget: Scaffold(
           appBar: AppBar(
-            title: const Text('Tasbīḥ'),
-            backgroundColor: Colors.green,
+            title: const Text('Tasbīḥ',style: TextStyle(color: AppColor.kTextColor),),
+            backgroundColor: AppColor.kbgColor,
+             leading:  IconButton(
+          icon: const Icon(Icons.arrow_back,color: AppColor.kTextColor,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
             actions: [
               IconButton(
                   onPressed: () {
@@ -101,21 +108,21 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
             child: FutureBuilder<int>(
                 future: _counter,
                 builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return const Text(
-                        "",
-                      //   // style: TextStyle(color: Colors.green, fontSize: 50),
-                      );
-                    default:
+                  // switch (snapshot.connectionState) {
+                    // case ConnectionState.waiting:
+                    //   return const Text(
+                    //     "",
+                    //   //   // style: TextStyle(color: Colors.green, fontSize: 50),
+                    //   );
+                    // default:
                       if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
                       } else {
                         return Container(
                           decoration: BoxDecoration(
-                            color: Colors.green,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: Colors.black)
+                            color: AppColor.kgreyColor,
+                              borderRadius: BorderRadius.circular(29),
+                              // border: Border.all(color: Colors.black)
                           ),
                           height: MediaQuery.of(context).size.height / 5,
                           width: MediaQuery.of(context).size.width / 2.5,
@@ -129,7 +136,8 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
                         );
                       }
                   }
-                }),
+                // }
+                ),
           )),
     );
   }

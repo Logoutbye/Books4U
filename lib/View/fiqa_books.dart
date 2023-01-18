@@ -14,10 +14,16 @@ class _FiqaBooksState extends State<FiqaBooks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-backgroundColor: Colors.green,
+backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("Fiqa Books"),
-          backgroundColor: Colors.green,
+          title: Text("Fiqa Books",style: TextStyle(color: Colors.black),),
+          backgroundColor: Colors.white,
+          leading:  IconButton(
+          icon: const Icon(Icons.arrow_back,color: Colors.black,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         ),
         body: FutureBuilder<String>(
           future:
@@ -29,14 +35,8 @@ backgroundColor: Colors.green,
               List? books = jsonMap?.keys.toList();
 
               final filtered = jsonMap?.keys
-                  .where((path) => path.startsWith('assets/islamic_books/fiqa/'))
+                  .where((path) => path.startsWith('assets/islamic_books/Urdu/fiqa/'))
                   .toList();
-
-              print("khakha$filtered");
-              // books?.removeAt(0);
-              // books?.removeAt(books.length-1);
-              // books?.clear();
-              // books?.indexWhere((books) => books.startsWith('i'));
 
               return ListView.builder(
                 itemCount: filtered?.length,
@@ -44,14 +44,14 @@ backgroundColor: Colors.green,
                   var path = filtered![index].toString();
                   var title = path.split("/").last.toString();
                   // title = title.replaceAll("%20", " ") ;
-                  // title = title.split(".").first;
+                  title = title.split(".").first;
                   return Container(
                     
                     padding: EdgeInsets.all(8),
-                    margin: EdgeInsets.all(8),
+                    margin: EdgeInsets.fromLTRB(20, 8, 20, 8),
                     decoration: BoxDecoration(
-                        border: Border.all(width: 1),
-                        borderRadius: BorderRadius.circular(8)),
+                      color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(29)),
                     child: ListTile(
                       
                       title: Text(title),
