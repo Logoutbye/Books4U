@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter',
+      title: 'Books4U',
       theme: ThemeData(
         // This is the theme of your application.
         //
