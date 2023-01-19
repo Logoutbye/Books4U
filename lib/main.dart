@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:islamic_book_app/View/colors.dart';
 
 import 'View/home_screen.dart';
 
 void main() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor: AppColor.kbgColor,
+    statusBarColor: Color.fromARGB(255, 194, 186, 186),
+  ));
+
   runApp(const MyApp());
 }
 

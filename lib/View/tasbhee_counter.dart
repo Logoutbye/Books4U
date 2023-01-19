@@ -55,9 +55,8 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
         onPressed: () {
           _incrementCounter();
           isPressed = true;
-          print("objectfloating");
         },
-        child: const Icon(Icons.add, size: 50),
+        child: const Icon(Icons.add, size: 50,color: AppColor.kTextColor,),
       ),
       floatingWidgetHeight: 90,
       floatingWidgetWidth: 90,
@@ -101,43 +100,53 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
                     _resetCounter();
                     isPressed = false;
                   },
-                  icon: isPressed ? Icon(Icons.restore_page) : Text(""))
+                  icon: isPressed ? Icon((Icons.restore_page),color: AppColor.kTextColor,) : Text(""))
             ],
           ),
-          body: Center(
-            child: FutureBuilder<int>(
-                future: _counter,
-                builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                  // switch (snapshot.connectionState) {
-                    // case ConnectionState.waiting:
-                    //   return const Text(
-                    //     "",
-                    //   //   // style: TextStyle(color: Colors.green, fontSize: 50),
-                    //   );
-                    // default:
-                      if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: AppColor.kgreyColor,
-                              borderRadius: BorderRadius.circular(29),
-                              // border: Border.all(color: Colors.black)
-                          ),
-                          height: MediaQuery.of(context).size.height / 5,
-                          width: MediaQuery.of(context).size.width / 2.5,
-                          
-                          child: Center(
-                            child: Text(
-                              ' ${snapshot.data} ${snapshot.data == 1 ? '' : ''}',
-                              style: TextStyle(fontSize: 50),
+          body: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/bg.jpg'),
+                alignment: Alignment.topCenter,
+                fit: BoxFit.fill,
+              ),
+            ),
+            child: Center(
+              child: FutureBuilder<int>(
+                  future: _counter,
+                  builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                    // switch (snapshot.connectionState) {
+                      // case ConnectionState.waiting:
+                      //   return const Text(
+                      //     "",
+                      //   //   // style: TextStyle(color: Colors.green, fontSize: 50),
+                      //   );
+                      // default:
+                        if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: AppColor.kgreyColor,
+                                borderRadius: BorderRadius.circular(29),
+                                // border: Border.all(color: Colors.black)
                             ),
-                          ),
-                        );
-                      }
-                  }
-                // }
-                ),
+                            height: MediaQuery.of(context).size.height / 5,
+                            width: MediaQuery.of(context).size.width / 2.5,
+                            
+                            child: Center(
+                              child: Text(
+                                ' ${snapshot.data} ${snapshot.data == 1 ? '' : ''}',
+                                style: TextStyle(fontSize: 50),
+                              ),
+                            ),
+                          );
+                        }
+                    }
+                  // }
+                  ),
+            ),
           )),
     );
   }
