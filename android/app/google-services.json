@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "237411223465",
+    "project_id": "books4u-cb68e",
+    "storage_bucket": "books4u-cb68e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237411223465:android:1dd0f6f4daa557d808a6b8",
+        "android_client_info": {
+          "package_name": "com.Kawiish.books4u"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237411223465-vbaf2kf67ruhje58fhq2p6scs03hnp4c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMM4vFIcUbzKFZK-fbCIPNyRlD9WAXJzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237411223465-vbaf2kf67ruhje58fhq2p6scs03hnp4c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

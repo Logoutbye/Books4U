@@ -47,6 +47,9 @@ dependencies:
   floating_draggable_widget: ^2.1.2
   file_picker: ^5.2.4
 
+  #firebase dependcies
+  firebase_core: ^2.4.1
+
   
   
 dev_dependencies:
