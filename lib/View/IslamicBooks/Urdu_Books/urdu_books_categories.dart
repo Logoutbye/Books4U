@@ -10,7 +10,8 @@ import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/urdu_historic_book
 import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/tafseer_books.dart';
 
 class UrduBooksCategories extends StatefulWidget {
-  const UrduBooksCategories({super.key});
+  String language;
+  UrduBooksCategories({required this.language, super.key});
 
   @override
   State<UrduBooksCategories> createState() => _UrduBooksCategoriesState();
@@ -19,9 +20,11 @@ class UrduBooksCategories extends StatefulWidget {
 class _UrduBooksCategoriesState extends State<UrduBooksCategories>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  String bookLanguage = '';
 
   @override
   void initState() {
+    bookLanguage = widget.language;
     super.initState();
     _controller = AnimationController(vsync: this);
   }
@@ -38,7 +41,7 @@ class _UrduBooksCategoriesState extends State<UrduBooksCategories>
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          "Select Urdu Category",
+          "Select ${widget.language} Category",
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -69,11 +72,12 @@ class _UrduBooksCategoriesState extends State<UrduBooksCategories>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    // Historical and hadis books
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        //first
+                        //Hostorical books conatianer
                         InkWell(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
@@ -100,7 +104,15 @@ class _UrduBooksCategoriesState extends State<UrduBooksCategories>
                                     },
                                   ),
                                   Text(
-                                    "Historic Books",
+                                    bookLanguage == 'Urdu'
+                                        ? 'تاریخی کتب'
+                                        : bookLanguage == 'English'
+                                            ? 'Historical Books'
+                                            : bookLanguage == 'Pashto'
+                                                ? 'تاریخي کتابونه'
+                                                : bookLanguage == 'Arabic'
+                                                    ? 'كتب تاريخية'
+                                                    : '',
                                     style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.black,
