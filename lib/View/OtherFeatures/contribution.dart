@@ -1,6 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:islamic_book_app/View/colors.dart';
+import 'package:islamic_book_app/Utility/colors.dart';
 
 // File file = File("");
 
@@ -36,26 +36,32 @@ class _ContributionState extends State<Contribution> {
     return Scaffold(
         backgroundColor: AppColor.kbgColor,
         appBar: AppBar(
-          title: Text("Submit your File",style: TextStyle(color:AppColor.kTextColor ),),
+          title: Text(
+            "Submit your File",
+            style: TextStyle(color: AppColor.kTextColor),
+          ),
           backgroundColor: AppColor.kbgColor,
-          leading: IconButton(icon: Icon(Icons.arrow_back,),color: Colors.black,onPressed: () {
-            Navigator.pop(context);
-          },),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+            ),
+            color: Colors.black,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
         body: Container(
-         
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/bg.jpg'),
-                alignment: Alignment.topCenter,
-                fit: BoxFit.fill,
-              ),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/bg.jpg'),
+              alignment: Alignment.topCenter,
+              fit: BoxFit.fill,
             ),
-          
+          ),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -65,11 +71,11 @@ class _ContributionState extends State<Contribution> {
                   child: Column(
                     children: <Widget>[
                       Container(
-                       decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(29),
-                              color: AppColor.kgreyColor,
-                              // border: Border.all(color: Colors.grey)
-                                ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(29),
+                          color: AppColor.kgreyColor,
+                          // border: Border.all(color: Colors.grey)
+                        ),
                         padding: EdgeInsets.fromLTRB(16, 8, 8, 8),
                         child: TextFormField(
                           decoration: InputDecoration(
@@ -89,14 +95,14 @@ class _ContributionState extends State<Contribution> {
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height/25,
+                        height: MediaQuery.of(context).size.height / 25,
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(29),
-                              color: AppColor.kgreyColor,
-                              // border: Border.all(color: Colors.grey)
-                                ),
+                          borderRadius: BorderRadius.circular(29),
+                          color: AppColor.kgreyColor,
+                          // border: Border.all(color: Colors.grey)
+                        ),
                         padding: EdgeInsets.fromLTRB(16, 8, 8, 8),
                         child: TextFormField(
                           decoration: InputDecoration(
@@ -116,8 +122,8 @@ class _ContributionState extends State<Contribution> {
                           },
                         ),
                       ),
-                     SizedBox(
-                        height: MediaQuery.of(context).size.height/25,
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 25,
                       ),
                       if (pickedFile != null)
                         Container(
@@ -126,7 +132,6 @@ class _ContributionState extends State<Contribution> {
                                 borderRadius: BorderRadius.circular(29)),
                             padding: EdgeInsets.all(8),
                             child: Text(pickedFile!.name)),
-                      
                       InkWell(
                         onTap: () {
                           selectFile();
@@ -158,15 +163,15 @@ class _ContributionState extends State<Contribution> {
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(29),
-                              color: AppColor.kgreyColor,
-                              // border: Border.all(color: Colors.grey)
-                                ),
+                            color: AppColor.kgreyColor,
+                            // border: Border.all(color: Colors.grey)
+                          ),
                           height: MediaQuery.of(context).size.height / 8,
                           width: MediaQuery.of(context).size.width / 5,
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height/25,
+                        height: MediaQuery.of(context).size.height / 25,
                       ),
                       InkWell(
                         onTap: () async {},
@@ -195,9 +200,9 @@ class _ContributionState extends State<Contribution> {
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(29),
-                              color: AppColor.kgreyColor,
-                              // border: Border.all(color: Colors.grey)
-                                ),
+                            color: AppColor.kgreyColor,
+                            // border: Border.all(color: Colors.grey)
+                          ),
                           height: MediaQuery.of(context).size.height / 8,
                           width: MediaQuery.of(context).size.width / 5,
                         ),

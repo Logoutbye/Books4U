@@ -1,23 +1,24 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
-import 'package:islamic_book_app/View/Urdu_Books/urdu_historic_books.dart';
-import 'package:islamic_book_app/View/fathwa_books.dart';
-import 'package:islamic_book_app/View/hadiths_books.dart';
-import 'package:islamic_book_app/View/tafseer_books.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/darsi_books.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/fathwa_books.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/fiqa_books.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/hadiths_books.dart';
 
-import '../darsi_books.dart';
-import '../fiqa_books.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/tafseer_books.dart';
+import '../../../Utility/colors.dart';
 
+import 'arabic_historic_books.dart';
 
-class UrduBooksCategories extends StatefulWidget {
-  const UrduBooksCategories({super.key});
+class ArabicBooksCategories extends StatefulWidget {
+  const ArabicBooksCategories({super.key});
 
   @override
-  State<UrduBooksCategories> createState() => _UrduBooksCategoriesState();
+  State<ArabicBooksCategories> createState() => _ArabicBooksCategoriesState();
 }
 
-class _UrduBooksCategoriesState extends State<UrduBooksCategories>
+class _ArabicBooksCategoriesState extends State<ArabicBooksCategories>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -36,12 +37,18 @@ class _UrduBooksCategoriesState extends State<UrduBooksCategories>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColor.kbgColor,
       appBar: AppBar(
-        title: Text("Select Urdu Category",style: TextStyle(color: Colors.black),),
-        backgroundColor: Colors.white,
-        leading:  IconButton(
-          icon: const Icon(Icons.arrow_back,color: Colors.black,),
+        title: Text(
+          "Select Arabic Category",
+          style: TextStyle(color: AppColor.kTextColor),
+        ),
+        backgroundColor: AppColor.kbgColor,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppColor.kTextColor,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -49,13 +56,13 @@ class _UrduBooksCategoriesState extends State<UrduBooksCategories>
       ),
       body: Container(
         width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/bg.jpg'),
-                alignment: Alignment.topCenter,
-                fit: BoxFit.fill,
-              ),
-            ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/bg.jpg'),
+            alignment: Alignment.topCenter,
+            fit: BoxFit.fill,
+          ),
+        ),
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
@@ -72,41 +79,43 @@ class _UrduBooksCategoriesState extends State<UrduBooksCategories>
                         InkWell(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => UrduHistoricBooks()));
+                                builder: (context) => ArabicHistoricBooks()));
                           },
                           child: Container(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(20),
+                            // ignore: sort_child_properties_last
                             child: SingleChildScrollView(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   IconButton(
-                                    padding: EdgeInsets.fromLTRB(8,24,8,8),
                                     icon: ImageIcon(
                                       AssetImage("assets/images/feather.png"),
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => UrduHistoricBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ArabicHistoricBooks()));
                                     },
                                   ),
                                   Text(
                                     "Historic Books",
                                     style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black,
+                                        color: AppColor.kTextColor,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],
                               ),
                             ),
-                          decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: Colors.grey[200],
-                                  // border: Border.all(color: Colors.grey)
-                                    ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(29),
+                              color: AppColor.kgreyColor,
+                              // border: Border.all(color: Colors.grey)
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -121,38 +130,39 @@ class _UrduBooksCategoriesState extends State<UrduBooksCategories>
                                 builder: (context) => HadithsBooks()));
                           },
                           child: Container(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(29),
                             child: SingleChildScrollView(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   IconButton(
-                                    padding: EdgeInsets.fromLTRB(8,24,8,8),
                                     icon: ImageIcon(
                                       AssetImage("assets/images/hadees.png"),
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => HadithsBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HadithsBooks()));
                                     },
                                   ),
                                   Text(
                                     "Hadiths",
                                     style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black,
+                                        color: AppColor.kTextColor,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],
                               ),
                             ),
-                           decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: Colors.grey[200],
-                                  // border: Border.all(color: Colors.grey)
-                                    ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(29),
+                              color: AppColor.kgreyColor,
+                              // border: Border.all(color: Colors.grey)
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -171,7 +181,7 @@ class _UrduBooksCategoriesState extends State<UrduBooksCategories>
                                 builder: (context) => TafseerBooks()));
                           },
                           child: Container(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(29),
                             // ignore: sort_child_properties_last
                             child: SingleChildScrollView(
                               child: Column(
@@ -179,31 +189,32 @@ class _UrduBooksCategoriesState extends State<UrduBooksCategories>
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   IconButton(
-                                    padding: EdgeInsets.fromLTRB(8,24,8,8),
                                     icon: ImageIcon(
                                       AssetImage("assets/images/book.png"),
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => TafseerBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TafseerBooks()));
                                     },
                                   ),
                                   Text(
                                     "Tafseer",
                                     style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black,
+                                        color: AppColor.kTextColor,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],
                               ),
                             ),
-                           decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: Colors.grey[200],
-                                  // border: Border.all(color: Colors.grey)
-                                    ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(29),
+                              color: AppColor.kgreyColor,
+                              // border: Border.all(color: Colors.grey)
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -215,42 +226,43 @@ class _UrduBooksCategoriesState extends State<UrduBooksCategories>
                         //fourth
                         InkWell(
                           onTap: () {
-                            Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => FiqaBooks()));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => FiqaBooks()));
                           },
                           child: Container(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(29),
                             child: SingleChildScrollView(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   IconButton(
-                                    padding: EdgeInsets.fromLTRB(8,24,8,8),
                                     icon: ImageIcon(
                                       AssetImage("assets/images/fiqha.png"),
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => FiqaBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FiqaBooks()));
                                     },
                                   ),
                                   Text(
                                     "Fiqha",
                                     style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black,
+                                        color: AppColor.kTextColor,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],
                               ),
                             ),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: Colors.grey[200],
-                                  // border: Border.all(color: Colors.grey)
-                                    ),
+                              borderRadius: BorderRadius.circular(29),
+                              color: AppColor.kgreyColor,
+                              // border: Border.all(color: Colors.grey)
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -269,7 +281,7 @@ class _UrduBooksCategoriesState extends State<UrduBooksCategories>
                                 builder: (context) => FathwaBooks()));
                           },
                           child: Container(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(29),
                             // ignore: sort_child_properties_last
                             child: SingleChildScrollView(
                               child: Column(
@@ -277,31 +289,32 @@ class _UrduBooksCategoriesState extends State<UrduBooksCategories>
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   IconButton(
-                                    padding: EdgeInsets.fromLTRB(8,24,8,8),
                                     icon: ImageIcon(
                                       AssetImage("assets/images/fathwa.png"),
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => FathwaBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FathwaBooks()));
                                     },
                                   ),
                                   Text(
                                     "Fathwa Books",
                                     style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black,
+                                        color: AppColor.kTextColor,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],
                               ),
                             ),
-                           decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: Colors.grey[200],
-                                  // border: Border.all(color: Colors.grey)
-                                    ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(29),
+                              color: AppColor.kgreyColor,
+                              // border: Border.all(color: Colors.grey)
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -316,40 +329,39 @@ class _UrduBooksCategoriesState extends State<UrduBooksCategories>
                                 builder: (context) => DarsiBooks()));
                           },
                           child: Container(
-                            padding: EdgeInsets.all(8),
-
+                            padding: EdgeInsets.all(29),
                             child: SingleChildScrollView(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                
                                 children: [
                                   IconButton(
-                                  padding: EdgeInsets.fromLTRB(8,24,8,8),
                                     icon: ImageIcon(
                                       AssetImage("assets/images/darsi.png"),
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => DarsiBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DarsiBooks()));
                                     },
                                   ),
                                   Text(
                                     "Darsi Books",
                                     style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black,
+                                        color: AppColor.kTextColor,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],
                               ),
                             ),
-                           decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: Colors.grey[200],
-                                  // border: Border.all(color: Colors.grey)
-                                    ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(29),
+                              color: AppColor.kgreyColor,
+                              // border: Border.all(color: Colors.grey)
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),

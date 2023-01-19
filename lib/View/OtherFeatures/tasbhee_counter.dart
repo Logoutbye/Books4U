@@ -1,6 +1,6 @@
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:islamic_book_app/View/colors.dart';
+import 'package:islamic_book_app/Utility/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TasbheeCounter extends StatefulWidget {
@@ -28,11 +28,11 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
   Future<void> _resetCounter() async {
     final SharedPreferences prefs = await _prefs;
     // final counter = prefs.remove('counter');
-    final counter =prefs.clear();
+    final counter = prefs.clear();
 
     setState(() {
       // _counter = prefs.setInt('counter', 0).then((bool success) {
-         _counter = prefs.clear().then((bool) {
+      _counter = prefs.clear().then((bool) {
         return 0;
       }).onError((error, stackTrace) => _counter);
     });
@@ -49,14 +49,17 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
   @override
   Widget build(BuildContext context) {
     return FloatingDraggableWidget(
-
       floatingWidget: FloatingActionButton(
         backgroundColor: AppColor.kbgColor,
         onPressed: () {
           _incrementCounter();
           isPressed = true;
         },
-        child: const Icon(Icons.add, size: 50,color: AppColor.kTextColor,),
+        child: const Icon(
+          Icons.add,
+          size: 50,
+          color: AppColor.kTextColor,
+        ),
       ),
       floatingWidgetHeight: 90,
       floatingWidgetWidth: 90,
@@ -86,21 +89,32 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
       },
       mainScreenWidget: Scaffold(
           appBar: AppBar(
-            title: const Text('Tasbīḥ',style: TextStyle(color: AppColor.kTextColor),),
+            title: const Text(
+              'Tasbīḥ',
+              style: TextStyle(color: AppColor.kTextColor),
+            ),
             backgroundColor: AppColor.kbgColor,
-             leading:  IconButton(
-          icon: const Icon(Icons.arrow_back,color: AppColor.kTextColor,),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
+                color: AppColor.kTextColor,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
             actions: [
               IconButton(
                   onPressed: () {
                     _resetCounter();
                     isPressed = false;
                   },
-                  icon: isPressed ? Icon((Icons.restore_page),color: AppColor.kTextColor,) : Text(""))
+                  icon: isPressed
+                      ? Icon(
+                          (Icons.restore_page),
+                          color: AppColor.kTextColor,
+                        )
+                      : Text(""))
             ],
           ),
           body: Container(
@@ -117,33 +131,32 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
                   future: _counter,
                   builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
                     // switch (snapshot.connectionState) {
-                      // case ConnectionState.waiting:
-                      //   return const Text(
-                      //     "",
-                      //   //   // style: TextStyle(color: Colors.green, fontSize: 50),
-                      //   );
-                      // default:
-                        if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
-                        } else {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: AppColor.kgreyColor,
-                                borderRadius: BorderRadius.circular(29),
-                                // border: Border.all(color: Colors.black)
-                            ),
-                            height: MediaQuery.of(context).size.height / 5,
-                            width: MediaQuery.of(context).size.width / 2.5,
-                            
-                            child: Center(
-                              child: Text(
-                                ' ${snapshot.data} ${snapshot.data == 1 ? '' : ''}',
-                                style: TextStyle(fontSize: 50),
-                              ),
-                            ),
-                          );
-                        }
+                    // case ConnectionState.waiting:
+                    //   return const Text(
+                    //     "",
+                    //   //   // style: TextStyle(color: Colors.green, fontSize: 50),
+                    //   );
+                    // default:
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: AppColor.kgreyColor,
+                          borderRadius: BorderRadius.circular(29),
+                          // border: Border.all(color: Colors.black)
+                        ),
+                        height: MediaQuery.of(context).size.height / 5,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        child: Center(
+                          child: Text(
+                            ' ${snapshot.data} ${snapshot.data == 1 ? '' : ''}',
+                            style: TextStyle(fontSize: 50),
+                          ),
+                        ),
+                      );
                     }
+                  }
                   // }
                   ),
             ),

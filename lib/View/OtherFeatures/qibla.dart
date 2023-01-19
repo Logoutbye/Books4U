@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_qiblah/flutter_qiblah.dart';
-import 'package:islamic_book_app/View/qibla_compass.dart';
+import 'package:islamic_book_app/View/OtherFeatures/qibla_compass.dart';
 
 class Qibla extends StatefulWidget {
   const Qibla({super.key});

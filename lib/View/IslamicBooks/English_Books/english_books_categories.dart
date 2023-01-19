@@ -1,15 +1,15 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
-import 'package:islamic_book_app/View/colors.dart';
-import 'package:islamic_book_app/View/fathwa_books.dart';
-import 'package:islamic_book_app/View/hadiths_books.dart';
-import 'package:islamic_book_app/View/tafseer_books.dart';
+import 'package:islamic_book_app/Utility/colors.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/darsi_books.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/fathwa_books.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/fiqa_books.dart';
 
-import '../darsi_books.dart';
-import '../fiqa_books.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/tafseer_books.dart';
+
+import '../Urdu_Books/hadiths_books.dart';
 import 'eglish_historic_books.dart';
-
 
 class EnglishBooksCategories extends StatefulWidget {
   const EnglishBooksCategories({super.key});
@@ -39,24 +39,30 @@ class _EnglishBooksCategoriesState extends State<EnglishBooksCategories>
     return Scaffold(
       backgroundColor: AppColor.kbgColor,
       appBar: AppBar(
-        title: Text("Select English Category",style: TextStyle(color: AppColor.kTextColor),),
+        title: Text(
+          "Select English Category",
+          style: TextStyle(color: AppColor.kTextColor),
+        ),
         backgroundColor: AppColor.kbgColor,
-         leading:  IconButton(
-          icon: const Icon(Icons.arrow_back,color: AppColor.kTextColor,),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppColor.kTextColor,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
       ),
       body: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/bg.jpg'),
-                alignment: Alignment.topCenter,
-                fit: BoxFit.fill,
-              ),
-            ),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/bg.jpg'),
+            alignment: Alignment.topCenter,
+            fit: BoxFit.fill,
+          ),
+        ),
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
@@ -89,8 +95,10 @@ class _EnglishBooksCategoriesState extends State<EnglishBooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => EnglishHistoricBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EnglishHistoricBooks()));
                                     },
                                   ),
                                   Text(
@@ -104,10 +112,10 @@ class _EnglishBooksCategoriesState extends State<EnglishBooksCategories>
                               ),
                             ),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: AppColor.kgreyColor,
-                                  // border: Border.all(color: Colors.grey)
-                                    ),
+                              borderRadius: BorderRadius.circular(29),
+                              color: AppColor.kgreyColor,
+                              // border: Border.all(color: Colors.grey)
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -134,8 +142,10 @@ class _EnglishBooksCategoriesState extends State<EnglishBooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => HadithsBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HadithsBooks()));
                                     },
                                   ),
                                   Text(
@@ -149,10 +159,10 @@ class _EnglishBooksCategoriesState extends State<EnglishBooksCategories>
                               ),
                             ),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: AppColor.kgreyColor,
-                                  // border: Border.all(color: Colors.grey)
-                                    ),
+                              borderRadius: BorderRadius.circular(29),
+                              color: AppColor.kgreyColor,
+                              // border: Border.all(color: Colors.grey)
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -184,8 +194,10 @@ class _EnglishBooksCategoriesState extends State<EnglishBooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => TafseerBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TafseerBooks()));
                                     },
                                   ),
                                   Text(
@@ -198,11 +210,11 @@ class _EnglishBooksCategoriesState extends State<EnglishBooksCategories>
                                 ],
                               ),
                             ),
-                           decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: AppColor.kgreyColor,
-                                  // border: Border.all(color: Colors.grey)
-                                    ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(29),
+                              color: AppColor.kgreyColor,
+                              // border: Border.all(color: Colors.grey)
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -214,8 +226,8 @@ class _EnglishBooksCategoriesState extends State<EnglishBooksCategories>
                         //fourth
                         InkWell(
                           onTap: () {
-                            Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => FiqaBooks()));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => FiqaBooks()));
                           },
                           child: Container(
                             padding: EdgeInsets.all(29),
@@ -230,8 +242,10 @@ class _EnglishBooksCategoriesState extends State<EnglishBooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => FiqaBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FiqaBooks()));
                                     },
                                   ),
                                   Text(
@@ -245,10 +259,10 @@ class _EnglishBooksCategoriesState extends State<EnglishBooksCategories>
                               ),
                             ),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: AppColor.kgreyColor,
-                                  // border: Border.all(color: Colors.grey)
-                                    ),
+                              borderRadius: BorderRadius.circular(29),
+                              color: AppColor.kgreyColor,
+                              // border: Border.all(color: Colors.grey)
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -280,8 +294,10 @@ class _EnglishBooksCategoriesState extends State<EnglishBooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => FathwaBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FathwaBooks()));
                                     },
                                   ),
                                   Text(
@@ -295,10 +311,10 @@ class _EnglishBooksCategoriesState extends State<EnglishBooksCategories>
                               ),
                             ),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: AppColor.kgreyColor,
-                                  // border: Border.all(color: Colors.grey)
-                                    ),
+                              borderRadius: BorderRadius.circular(29),
+                              color: AppColor.kgreyColor,
+                              // border: Border.all(color: Colors.grey)
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -325,8 +341,10 @@ class _EnglishBooksCategoriesState extends State<EnglishBooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => DarsiBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DarsiBooks()));
                                     },
                                   ),
                                   Text(
@@ -340,10 +358,10 @@ class _EnglishBooksCategoriesState extends State<EnglishBooksCategories>
                               ),
                             ),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: AppColor.kgreyColor,
-                                  // border: Border.all(color: Colors.grey)
-                                    ),
+                              borderRadius: BorderRadius.circular(29),
+                              color: AppColor.kgreyColor,
+                              // border: Border.all(color: Colors.grey)
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),

@@ -1,10 +1,9 @@
-
 import 'package:flutter/material.dart';
-import 'package:islamic_book_app/View/qibla.dart';
-import 'package:islamic_book_app/View/tasbhee_counter.dart';
+import 'package:islamic_book_app/View/OtherFeatures/qibla.dart';
+import 'package:islamic_book_app/View/OtherFeatures/tasbhee_counter.dart';
 
-import '../View/colors.dart';
-import '../View/contribution.dart';
+import '../Utility/colors.dart';
+import '../View/OtherFeatures/contribution.dart';
 
 class BottomNavigationBarr extends StatefulWidget {
   const BottomNavigationBarr({super.key});
@@ -14,44 +13,42 @@ class BottomNavigationBarr extends StatefulWidget {
 }
 
 class _BottomNavigationBarrState extends State<BottomNavigationBarr> {
-  int pageIndex=0;
+  int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 70,
-
       decoration: BoxDecoration(
-          color: AppColor.kgreyColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(25),
-            topRight: Radius.circular(25),
-          ),
-      
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 8,
-              blurRadius: 12,
-              offset: Offset(0, 3),
-            ),
-          ],
+        color: AppColor.kgreyColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 8,
+            blurRadius: 12,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           IconButton(
-            enableFeedback: false,
-            onPressed: () {
-              setState(() {
-                pageIndex = 0;
-              });
-            },
-             icon: const Icon(
-                    Icons.home_filled,
-                    color: AppColor.kIconOnPressColor,
-                    size: 35,
-                  )),
+              enableFeedback: false,
+              onPressed: () {
+                setState(() {
+                  pageIndex = 0;
+                });
+              },
+              icon: const Icon(
+                Icons.home_filled,
+                color: AppColor.kIconOnPressColor,
+                size: 35,
+              )),
           //   icon: pageIndex == 0
           //       ? const Icon(
           //           Icons.home_filled,
@@ -70,10 +67,12 @@ class _BottomNavigationBarrState extends State<BottomNavigationBarr> {
               setState(() {
                 pageIndex = 1;
               });
-               Navigator.of(context).push( MaterialPageRoute(builder: (context) =>TasbheeCounter()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => TasbheeCounter()));
             },
             icon: ImageIcon(
-              AssetImage("assets/images/rosary.png"),),
+              AssetImage("assets/images/rosary.png"),
+            ),
             // icon: pageIndex == 1
             //     ? const Icon(
             //         Icons.work_rounded,
@@ -92,9 +91,12 @@ class _BottomNavigationBarrState extends State<BottomNavigationBarr> {
               setState(() {
                 pageIndex = 2;
               });
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>Qibla()));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Qibla()));
             },
-            icon: ImageIcon(AssetImage("assets/images/qibla.png"),),
+            icon: ImageIcon(
+              AssetImage("assets/images/qibla.png"),
+            ),
             // icon: pageIndex == 2
             //     ? const Icon(
             //         Icons.widgets_rounded,
@@ -113,8 +115,9 @@ class _BottomNavigationBarrState extends State<BottomNavigationBarr> {
               setState(() {
                 pageIndex = 3;
               });
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>Contribution()));
-              },
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Contribution()));
+            },
             icon: Icon(Icons.add_card_rounded),
             // icon: pageIndex == 3
             //     ? const Icon(
@@ -130,10 +133,6 @@ class _BottomNavigationBarrState extends State<BottomNavigationBarr> {
           ),
         ],
       ),
-      
     );
-
-
-     
   }
 }

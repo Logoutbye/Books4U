@@ -1,52 +1,54 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:islamic_book_app/View/colors.dart';
+import 'package:islamic_book_app/Utility/colors.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-class HadithsBooks extends StatefulWidget {
-  const HadithsBooks({super.key});
+class UrduHistoricBooks extends StatefulWidget {
+  const UrduHistoricBooks({super.key});
 
   @override
-  State<HadithsBooks> createState() => _HadithsBooksState();
+  State<UrduHistoricBooks> createState() => _UrduHistoricBooksBooksState();
 }
 
-class _HadithsBooksState extends State<HadithsBooks> {
+class _UrduHistoricBooksBooksState extends State<UrduHistoricBooks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("Hadiths Books",style: TextStyle(color: Colors.black),),
+          title: Text(
+            "Historic Books",
+            style: TextStyle(color: Colors.black),
+          ),
           backgroundColor: Colors.white,
-          leading:  IconButton(
-          icon: const Icon(Icons.arrow_back,color: AppColor.kTextColor,),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: AppColor.kTextColor),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
         body: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/bg.jpg'),
-                alignment: Alignment.topCenter,
-                fit: BoxFit.fill,
-              ),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/bg.jpg'),
+              alignment: Alignment.topCenter,
+              fit: BoxFit.fill,
             ),
+          ),
           child: Center(
             child: FutureBuilder<String>(
-              future:
-                  DefaultAssetBundle.of(context).loadString("AssetManifest.json"),
+              future: DefaultAssetBundle.of(context)
+                  .loadString("AssetManifest.json"),
               builder: (context, item) {
-
                 if (item.hasData) {
                   Map? jsonMap = jsonDecode(item.data!);
                   List? books = jsonMap?.keys.toList();
 
                   final filtered = jsonMap?.keys
-                      .where((path) => path.startsWith('assets/islamic_books/Urdu/Hadits/'))
+                      .where((path) => path.startsWith(
+                          'assets/islamic_books/Urdu/historic_books/'))
                       .toList();
                   return ListView.builder(
                     itemCount: filtered?.length,
@@ -56,14 +58,14 @@ backgroundColor: Colors.white,
                       // title = title.replaceAll("%20", " ") ;
                       title = title.split(".").first;
                       return Container(
-                        
                         padding: EdgeInsets.all(8),
                         margin: EdgeInsets.fromLTRB(20, 8, 20, 8),
                         decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(29),
                           color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(29)),
+                          // border: Border.all(color: Colors.grey)
+                        ),
                         child: ListTile(
-                          
                           title: Text(title),
                           // subtitle: Text("path: $path"),
                           leading: Icon(Icons.menu_book_rounded),

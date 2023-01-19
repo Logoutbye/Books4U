@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:islamic_book_app/View/colors.dart';
+import 'package:islamic_book_app/Utility/colors.dart';
 
 import 'View/home_screen.dart';
 

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:islamic_book_app/View/Pashto_Books/pashto_historic_books.dart';
-import 'package:islamic_book_app/View/fathwa_books.dart';
-import 'package:islamic_book_app/View/hadiths_books.dart';
-import 'package:islamic_book_app/View/tafseer_books.dart';
-import '../darsi_books.dart';
-import '../fiqa_books.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Pashto_Books/pashto_historic_books.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/darsi_books.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/fathwa_books.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/fiqa_books.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/hadiths_books.dart';
+
+import 'package:islamic_book_app/View/IslamicBooks/Urdu_Books/tafseer_books.dart';
 
 class PashtoBooksCategories extends StatefulWidget {
   const PashtoBooksCategories({super.key});
@@ -34,24 +35,30 @@ class _PashtoBooksCategoriesState extends State<PashtoBooksCategories>
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Select Pashto Category",style: TextStyle(color: Colors.black),),
+        title: Text(
+          "Select Pashto Category",
+          style: TextStyle(color: Colors.black),
+        ),
         backgroundColor: Colors.white,
-        leading:  IconButton(
-          icon: const Icon(Icons.arrow_back,color: Colors.black,),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
       ),
       body: Container(
-          width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/bg.jpg'),
-                alignment: Alignment.topCenter,
-                fit: BoxFit.fill,
-              ),
-            ),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/bg.jpg'),
+            alignment: Alignment.topCenter,
+            fit: BoxFit.fill,
+          ),
+        ),
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
@@ -84,8 +91,10 @@ class _PashtoBooksCategoriesState extends State<PashtoBooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => PashtoHistoricBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PashtoHistoricBooks()));
                                     },
                                   ),
                                   Text(
@@ -98,9 +107,10 @@ class _PashtoBooksCategoriesState extends State<PashtoBooksCategories>
                                 ],
                               ),
                             ),
-                           decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: Colors.grey[200],),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(29),
+                              color: Colors.grey[200],
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -127,8 +137,10 @@ class _PashtoBooksCategoriesState extends State<PashtoBooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => HadithsBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HadithsBooks()));
                                     },
                                   ),
                                   Text(
@@ -141,9 +153,10 @@ class _PashtoBooksCategoriesState extends State<PashtoBooksCategories>
                                 ],
                               ),
                             ),
-                           decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: Colors.grey[200],),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(29),
+                              color: Colors.grey[200],
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -175,8 +188,10 @@ class _PashtoBooksCategoriesState extends State<PashtoBooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => TafseerBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TafseerBooks()));
                                     },
                                   ),
                                   Text(
@@ -190,8 +205,9 @@ class _PashtoBooksCategoriesState extends State<PashtoBooksCategories>
                               ),
                             ),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: Colors.grey[200],),
+                              borderRadius: BorderRadius.circular(29),
+                              color: Colors.grey[200],
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -203,8 +219,8 @@ class _PashtoBooksCategoriesState extends State<PashtoBooksCategories>
                         //fourth
                         InkWell(
                           onTap: () {
-                            Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => FiqaBooks()));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => FiqaBooks()));
                           },
                           child: Container(
                             padding: EdgeInsets.all(29),
@@ -219,8 +235,10 @@ class _PashtoBooksCategoriesState extends State<PashtoBooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => FiqaBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FiqaBooks()));
                                     },
                                   ),
                                   Text(
@@ -234,8 +252,9 @@ class _PashtoBooksCategoriesState extends State<PashtoBooksCategories>
                               ),
                             ),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: Colors.grey[200],),
+                              borderRadius: BorderRadius.circular(29),
+                              color: Colors.grey[200],
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -267,8 +286,10 @@ class _PashtoBooksCategoriesState extends State<PashtoBooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => FathwaBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FathwaBooks()));
                                     },
                                   ),
                                   Text(
@@ -281,9 +302,10 @@ class _PashtoBooksCategoriesState extends State<PashtoBooksCategories>
                                 ],
                               ),
                             ),
-                          decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: Colors.grey[200],),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(29),
+                              color: Colors.grey[200],
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
@@ -310,8 +332,10 @@ class _PashtoBooksCategoriesState extends State<PashtoBooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => DarsiBooks()));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DarsiBooks()));
                                     },
                                   ),
                                   Text(
@@ -324,9 +348,10 @@ class _PashtoBooksCategoriesState extends State<PashtoBooksCategories>
                                 ],
                               ),
                             ),
-                           decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(29),
-                                  color: Colors.grey[200],),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(29),
+                              color: Colors.grey[200],
+                            ),
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
