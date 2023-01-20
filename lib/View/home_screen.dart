@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:islamic_book_app/View/OtherFeatures/contribution.dart';
 import 'package:islamic_book_app/View/MotivationalBooks/motivational_books.dart';
-import 'package:islamic_book_app/View/OtherFeatures/qibla.dart';
-import 'package:islamic_book_app/View/OtherFeatures/tasbhee_counter.dart';
 import '../Model/navigation.dart';
 import '../Utility/colors.dart';
 import 'IslamicBooks/Languages/languages.dart';

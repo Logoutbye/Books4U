@@ -44,23 +44,23 @@ class _BottomNavigationBarrState extends State<BottomNavigationBarr> {
                   pageIndex = 0;
                 });
               },
-              icon: const Icon(
-                Icons.home_filled,
-                color: AppColor.kIconOnPressColor,
-                size: 35,
-              )),
-          //   icon: pageIndex == 0
-          //       ? const Icon(
-          //           Icons.home_filled,
-          //           color: AppColor.kIconColor,
-          //           size: 35,
-          //         )
-          //       : const Icon(
-          //           Icons.home_outlined,
-          //           color: AppColor.kIconOnPressColor,
-          //           size: 35,
-          //         ),
-          // ),
+              // icon: const Icon(
+              //   Icons.home_filled,
+              //   color: AppColor.kIconOnPressColor,
+              //   size: 35,
+              // )),
+            icon: pageIndex == 0
+                ? const Icon(
+                    Icons.home_filled,
+                    color:AppColor.kIconOnPressColor,
+                    size: 35,
+                  )
+                : const Icon(
+                    Icons.home_outlined,
+                    color:AppColor.kIconColor,
+                    size: 35,
+                  ),
+          ),
           IconButton(
             enableFeedback: false,
             onPressed: () {
@@ -70,20 +70,22 @@ class _BottomNavigationBarrState extends State<BottomNavigationBarr> {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => TasbheeCounter()));
             },
-            icon: ImageIcon(
-              AssetImage("assets/images/rosary.png"),
-            ),
-            // icon: pageIndex == 1
-            //     ? const Icon(
-            //         Icons.work_rounded,
-            //         color: AppColor.kIconColor,
-            //         size: 35,
-            //       )
-            //     : const Icon(
-            //         Icons.work_outline_outlined,
-            //         color: AppColor.kIconOnPressColor,
-            //         size: 35,
-            //       ),
+            // icon: ImageIcon(
+            //   AssetImage("assets/images/tasbih.png"),
+            // ),
+            icon: pageIndex == 1
+                ?  ImageIcon(
+              AssetImage("assets/images/tasbih2.png"),
+                    color: AppColor.kIconOnPressColor,
+
+                    size: 100,
+                  )
+                : ImageIcon(
+              AssetImage("assets/images/tasbih1.png"),
+                    color: AppColor.kIconColor,
+
+                    size: 100,
+                  ),
           ),
           IconButton(
             enableFeedback: true,
@@ -94,20 +96,22 @@ class _BottomNavigationBarrState extends State<BottomNavigationBarr> {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => Qibla()));
             },
-            icon: ImageIcon(
-              AssetImage("assets/images/qibla.png"),
-            ),
-            // icon: pageIndex == 2
-            //     ? const Icon(
-            //         Icons.widgets_rounded,
-            //         color: AppColor.kIconColor,
-            //         size: 35,
-            //       )
-            //     : const Icon(
-            //         Icons.widgets_outlined,
-            //         color: AppColor.kIconOnPressColor,
-            //         size: 35,
-            //       ),
+            // icon: ImageIcon(
+            //   AssetImage("assets/images/qibla.png"),
+            // ),
+            icon: pageIndex == 2
+                ? const ImageIcon(
+              AssetImage("assets/images/qibla2.png"),
+              color: AppColor.kIconOnPressColor,
+
+                    
+                    size: 35,
+                  )
+                : const ImageIcon(
+              AssetImage("assets/images/qibla1.png"),
+              color: AppColor.kIconColor,
+                    size: 35,
+                  ),
           ),
           IconButton(
             enableFeedback: false,
@@ -118,18 +122,20 @@ class _BottomNavigationBarrState extends State<BottomNavigationBarr> {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => Contribution()));
             },
-            icon: Icon(Icons.add_card_rounded),
-            // icon: pageIndex == 3
-            //     ? const Icon(
-            //         Icons.person,
-            //         color:AppColor.kIconColor,
-            //         size: 35,
-            //       )
-            //     : const Icon(
-            //         Icons.person_outline,
-            //         color: AppColor.kIconOnPressColor,
-            //         size: 35,
-            //       ),
+            // icon: Icon(Icons.add_card_rounded),
+            icon: pageIndex == 3
+                ? const Icon(
+                    Icons.add_card_rounded,
+                    color: AppColor.kIconOnPressColor,
+
+                    size: 35,
+                  )
+                : const Icon(
+                    Icons.add_card_outlined,
+                    color:AppColor.kIconColor,
+
+                    size: 35,
+                  ),
           ),
         ],
       ),

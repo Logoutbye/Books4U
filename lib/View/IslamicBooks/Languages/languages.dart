@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Arabic_Books/arabic_book_categories.dart';
-import '../English_Books/english_books_categories.dart';
-import '../Pashto_Books/pashto_books_categories.dart';
-import '../Urdu_Books/urdu_books_categories.dart';
+import '../Books/books_categories.dart';
 
 class Languages extends StatefulWidget {
   const Languages({super.key});
@@ -59,40 +56,42 @@ class _LanguagesState extends State<Languages> {
                         InkWell(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => UrduBooksCategories(
+                                builder: (context) => BooksCategories(
                                       language: 'Urdu',
                                     )));
                           },
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            // padding: EdgeInsets.all(10),
                             // ignore: sort_child_properties_last
-                            child: SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  IconButton(
-                                    icon: ImageIcon(
-                                      AssetImage("assets/images/urdu.png"),
+                            child: Center(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      icon: ImageIcon(
+                                        AssetImage("assets/images/urdu.png"),
+                                      ),
+                                      iconSize: 72,
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BooksCategories(
+                                                      language: 'Urdu',
+                                                    )));
+                                      },
                                     ),
-                                    iconSize: 72,
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  UrduBooksCategories(
-                                                    language: 'Urdu',
-                                                  )));
-                                    },
-                                  ),
-                                  Text(
-                                    "Urdu Books",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
+                                    Text(
+                                      "Urdu Books",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                             decoration: BoxDecoration(
@@ -112,7 +111,7 @@ class _LanguagesState extends State<Languages> {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
-                                    UrduBooksCategories(language: 'Pashto')));
+                                    BooksCategories(language: 'Pashto')));
                           },
                           child: Container(
                             //padding: EdgeInsets.all(29),
@@ -132,7 +131,7 @@ class _LanguagesState extends State<Languages> {
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    UrduBooksCategories(
+                                                    BooksCategories(
                                                         language: 'Pashto')));
                                       },
                                     ),
@@ -169,7 +168,7 @@ class _LanguagesState extends State<Languages> {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
-                                    UrduBooksCategories(language: 'English')));
+                                    BooksCategories(language: 'English')));
                           },
                           child: Container(
                             //padding: EdgeInsets.all(15),
@@ -189,7 +188,7 @@ class _LanguagesState extends State<Languages> {
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    UrduBooksCategories(
+                                                    BooksCategories(
                                                         language: 'English')));
                                       },
                                     ),
@@ -223,7 +222,7 @@ class _LanguagesState extends State<Languages> {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
-                                    UrduBooksCategories(language: 'Arabic')));
+                                    BooksCategories(language: 'Arabic')));
                           },
                           child: Container(
                             //padding: EdgeInsets.all(29),
@@ -242,7 +241,7 @@ class _LanguagesState extends State<Languages> {
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    UrduBooksCategories(
+                                                    BooksCategories(
                                                         language: 'Arabic')));
                                       },
                                     ),

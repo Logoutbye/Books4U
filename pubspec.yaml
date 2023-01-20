@@ -94,16 +94,32 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/Books_Images/
     - assets/images/
-    - assets/islamic_books/Arabic/historic_books/
-    - assets/islamic_books/English/historic_books/
-    - assets/islamic_books/Pashto/historic_books/
-    - assets/islamic_books/Urdu/Darsi/
-    - assets/islamic_books/Urdu/Fathwa/
-    - assets/islamic_books/Urdu/fiqa/
-    - assets/islamic_books/Urdu/Hadits/
-    - assets/islamic_books/Urdu/historic_books/
-    - assets/islamic_books/Urdu/Tafseer/
+    - assets/Islamic_Books/Arabic/Darsi/
+    - assets/Islamic_Books/Arabic/Fathwa/
+    - assets/Islamic_Books/Arabic/Fiqa/
+    - assets/Islamic_Books/Arabic/Hadits/
+    - assets/Islamic_Books/Arabic/Historic/
+    - assets/Islamic_Books/Arabic/Tafseer/
+    - assets/Islamic_Books/English/Darsi/
+    - assets/Islamic_Books/English/Fathwa/
+    - assets/Islamic_Books/English/Fiqa/
+    - assets/Islamic_Books/English/Hadits/
+    - assets/Islamic_Books/English/Historic/
+    - assets/Islamic_Books/English/Tafseer/
+    - assets/Islamic_Books/Pashto/Darsi/
+    - assets/Islamic_Books/Pashto/Fathwa/
+    - assets/Islamic_Books/Pashto/Fiqa/
+    - assets/Islamic_Books/Pashto/Hadits/
+    - assets/Islamic_Books/Pashto/Historic/
+    - assets/Islamic_Books/Pashto/Tafseer/
+    - assets/Islamic_Books/Urdu/Darsi/
+    - assets/Islamic_Books/Urdu/Fathwa/
+    - assets/Islamic_Books/Urdu/Fiqa/
+    - assets/Islamic_Books/Urdu/Hadits/
+    - assets/Islamic_Books/Urdu/Historic/
+    - assets/Islamic_Books/Urdu/Tafseer/    
     - assets/Motivational_Book/
 
   # An image asset can refer to one or more resolution-specific "variants", see
