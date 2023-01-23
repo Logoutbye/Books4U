@@ -22,15 +22,15 @@ class BookDetail extends StatelessWidget {
       body: Stack(
         children: [
 
-          Container(
-            child: Hero(
-              tag: book.title,
-              child: Image.asset(
-                book.image,
-                fit: BoxFit.fitWidth
-              ),
-            ),
-          ),
+          // Container(
+          //   child: Hero(
+          //     tag: book.title,
+          //     child: Image.asset(
+          //       book.image,
+          //       fit: BoxFit.fitWidth
+          //     ),
+          //   ),
+          // ),
 
           Padding(
             padding: EdgeInsets.only(top: 48, left: 32,),
@@ -38,6 +38,8 @@ class BookDetail extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
               },
+
+              // arrow back button
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Container(
