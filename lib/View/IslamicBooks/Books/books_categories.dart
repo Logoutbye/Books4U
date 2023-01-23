@@ -1,13 +1,9 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
-import 'package:islamic_book_app/View/IslamicBooks/Books/darsi_books.dart';
-import 'package:islamic_book_app/View/IslamicBooks/Books/fathwa_books.dart';
-import 'package:islamic_book_app/View/IslamicBooks/Books/fiqa_books.dart';
-import 'package:islamic_book_app/View/IslamicBooks/Books/hadiths_books.dart';
+import 'package:islamic_book_app/Utility/colors.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Books/book_store.dart';
 
-import 'package:islamic_book_app/View/IslamicBooks/Books/tafseer_books.dart';
-import 'package:islamic_book_app/View/IslamicBooks/Books/historic_books.dart';
 
 class BooksCategories extends StatefulWidget {
   String language;
@@ -39,17 +35,17 @@ class _BooksCategoriesState extends State<BooksCategories>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColor.kbgColor,
       appBar: AppBar(
         title: Text(
           "Select ${widget.language} Category",
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: AppColor.kgreyColor,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: Colors.black,
+            color: AppColor.kTextColor,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -82,7 +78,8 @@ class _BooksCategoriesState extends State<BooksCategories>
                         InkWell(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => HistoricBooks(Category: bookLanguage == 'Urdu'?'buildUrduHistoricBooks'
+                                builder: (context) => BookStore(Category
+                                                  :bookLanguage == 'Urdu'?'buildUrduHistoricBooks'
                                                    :bookLanguage =='Arabic'? 'buildArabicHistoricBooks'
                                                     :bookLanguage == 'English'? 'buildEnglishHistoricBooks'
                                                      :bookLanguage == 'Pahto'? 'buildPashtoHistoricBooks'
@@ -106,7 +103,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  HistoricBooks(Category: 
+                                                  BookStore(Category: 
                                                   bookLanguage == 'Urdu'? 'buildUrduHistoricBooks'
                                                    :bookLanguage =='Arabic'? 'buildArabicHistoricBooks'
                                                     :bookLanguage == 'English'? 'buildEnglishHistoricBooks'
@@ -128,7 +125,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                                                     : '',
                                     style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black,
+                                        color: AppColor.kTextColor,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],    
@@ -137,7 +134,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(29),
-                              color: Colors.grey[200],
+                              color: AppColor.kgreyColor,
                               // border: Border.all(color: Colors.grey)
                             ),
                             height: MediaQuery.of(context).size.height / 5,
@@ -151,7 +148,13 @@ class _BooksCategoriesState extends State<BooksCategories>
                         InkWell(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => HadithsBooks()));
+                                builder: (context) => BookStore(
+                                  Category:bookLanguage == 'Urdu'? 'buildUrduHaditsBooks'
+                                                   :bookLanguage =='Arabic'? 'buildArabicHaditsBooks'
+                                                    :bookLanguage == 'English'? 'buildEnglishHaditsBooks'
+                                                     :bookLanguage == 'Pashto'? 'buildPashtoHaditsBooks'
+                                                      :"" ,
+                                )));
                           },
                           child: Container(
                             padding: EdgeInsets.all(8),
@@ -170,7 +173,13 @@ class _BooksCategoriesState extends State<BooksCategories>
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  HadithsBooks()));
+                                                  BookStore(
+                                                    Category:bookLanguage == 'Urdu'? 'buildUrduHaditsBooks'
+                                                   :bookLanguage =='Arabic'? 'buildArabicHaditsBooks'
+                                                    :bookLanguage == 'English'? 'buildEnglishHaditsBooks'
+                                                     :bookLanguage == 'Pashto'? 'buildPashtoHaditsBooks'
+                                                      :"" ,
+                                                  )));
                                     },
                                   ),
                                   //hadits
@@ -181,7 +190,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                                        :bookLanguage == "Arabic"? 'الأحاديث':'',
                                     style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black,
+                                        color: AppColor.kTextColor,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],
@@ -189,7 +198,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(29),
-                              color: Colors.grey[200],
+                              color: AppColor.kgreyColor,
                               // border: Border.all(color: Colors.grey)
                             ),
                             height: MediaQuery.of(context).size.height / 5,
@@ -207,8 +216,17 @@ class _BooksCategoriesState extends State<BooksCategories>
                         //third
                         InkWell(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => TafseerBooks()));
+                            Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BookStore(
+                                                    Category:bookLanguage == 'Urdu'? 'buildUrduTafseerBooks'
+                                                   :bookLanguage =='Arabic'? 'buildArabicTafseerBooks'
+                                                    :bookLanguage == 'English'? 'buildEnglishTafseerBooks'
+                                                     :bookLanguage == 'Pashto'? 'buildPashtoTafseerBooks'
+                                                      :"" ,
+                                                  )));
+                                    
                           },
                           child: Container(
                             padding: EdgeInsets.all(8),
@@ -225,10 +243,17 @@ class _BooksCategoriesState extends State<BooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
+
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  TafseerBooks()));
+                                                  BookStore(
+                                                    Category:bookLanguage == 'Urdu'? 'buildUrduTafseerBooks'
+                                                   :bookLanguage =='Arabic'? 'buildArabicTafseerBooks'
+                                                    :bookLanguage == 'English'? 'buildEnglishTafseerBooks'
+                                                     :bookLanguage == 'Pashto'? 'buildPashtoTafseerBooks'
+                                                      :"" ,
+                                                  )));
                                     },
                                   ),
                                   //"Tafseer",
@@ -239,7 +264,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                                        :bookLanguage == 'Arabic' ? 'التفسير':'',
                                     style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black,
+                                        color: AppColor.kTextColor,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],
@@ -247,7 +272,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(29),
-                              color: Colors.grey[200],
+                              color: AppColor.kgreyColor,
                               // border: Border.all(color: Colors.grey)
                             ),
                             height: MediaQuery.of(context).size.height / 5,
@@ -261,8 +286,16 @@ class _BooksCategoriesState extends State<BooksCategories>
                         //fourth
                         InkWell(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => FiqaBooks()));
+                          Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BookStore(
+                                                    Category:bookLanguage == 'Urdu'? 'buildUrduFiqaBooks'
+                                                   :bookLanguage =='Arabic'? 'buildArabicFiqaBooks'
+                                                    :bookLanguage == 'English'? 'buildEnglishFiqaBooks'
+                                                     :bookLanguage == 'Pashto'? 'buildPashtoFiqaBooks'
+                                                      :"" ,
+                                                  )));
                           },
                           child: Container(
                             padding: EdgeInsets.all(8),
@@ -278,10 +311,16 @@ class _BooksCategoriesState extends State<BooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(
+                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  FiqaBooks()));
+                                                  BookStore(
+                                                    Category:bookLanguage == 'Urdu'? 'buildUrduFiqaBooks'
+                                                   :bookLanguage =='Arabic'? 'buildArabicFiqaBooks'
+                                                    :bookLanguage == 'English'? 'buildEnglishFiqaBooks'
+                                                     :bookLanguage == 'Pashto'? 'buildPashtoFiqaBooks'
+                                                      :"" ,
+                                                  )));
                                     },
                                   ),
                                   // "Fiqha",
@@ -293,7 +332,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                                        :bookLanguage == 'Arabic'?'فقه':'',
                                     style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black,
+                                        color: AppColor.kTextColor,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],
@@ -301,7 +340,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(29),
-                              color: Colors.grey[200],
+                              color: AppColor.kgreyColor,
                               // border: Border.all(color: Colors.grey)
                             ),
                             height: MediaQuery.of(context).size.height / 5,
@@ -318,8 +357,16 @@ class _BooksCategoriesState extends State<BooksCategories>
                         //fifth
                         InkWell(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => FathwaBooks()));
+                            Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BookStore(
+                                                    Category:bookLanguage == 'Urdu'? 'buildUrduFathwaBooks'
+                                                   :bookLanguage =='Arabic'? 'buildArabicFathwaBooks'
+                                                    :bookLanguage == 'English'? 'buildEnglishFathwaBooks'
+                                                     :bookLanguage == 'Pashto'? 'buildPashtoFathwaBooks'
+                                                      :"" ,
+                                                  )));
                           },
                           child: Container(
                             padding: EdgeInsets.all(8),
@@ -339,7 +386,13 @@ class _BooksCategoriesState extends State<BooksCategories>
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  FathwaBooks()));
+                                                  BookStore(
+                                                    Category:bookLanguage == 'Urdu'? 'buildUrduFathwaBooks'
+                                                   :bookLanguage =='Arabic'? 'buildArabicFathwaBooks'
+                                                    :bookLanguage == 'English'? 'buildEnglishFathwaBooks'
+                                                     :bookLanguage == 'Pashto'? 'buildPashtoFathwaBooks'
+                                                      :"" ,
+                                                  )));
                                     },
                                   ),
                                   //Fathwa Books
@@ -349,7 +402,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                                       :bookLanguage == 'English'?'Fathwa'
                                        :bookLanguage == 'Arabic'?'فتوى':'',                                    style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black,
+                                        color: AppColor.kTextColor,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],
@@ -357,7 +410,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(29),
-                              color: Colors.grey[200],
+                              color: AppColor.kgreyColor,
                               // border: Border.all(color: Colors.grey)
                             ),
                             height: MediaQuery.of(context).size.height / 5,
@@ -370,8 +423,16 @@ class _BooksCategoriesState extends State<BooksCategories>
                         //Sixth
                         InkWell(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => DarsiBooks()));
+                           Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BookStore(
+                                                    Category:bookLanguage == 'Urdu'? 'buildUrduDarsiBooks'
+                                                   :bookLanguage =='Arabic'? 'buildArabicDarsiBooks'
+                                                    :bookLanguage == 'English'? 'buildEnglishDarsiBooks'
+                                                     :bookLanguage == 'Pashto'? 'buildPashtoDarsiBooks'
+                                                      :"" ,
+                                                  )));
                           },
                           child: Container(
                             padding: EdgeInsets.all(8),
@@ -387,10 +448,16 @@ class _BooksCategoriesState extends State<BooksCategories>
                                     ),
                                     iconSize: 72,
                                     onPressed: () {
-                                      Navigator.of(context).push(
+                                     Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  DarsiBooks()));
+                                                  BookStore(
+                                                    Category:bookLanguage == 'Urdu'? 'buildUrduDarsiBooks'
+                                                   :bookLanguage =='Arabic'? 'buildArabicDarsiBooks'
+                                                    :bookLanguage == 'English'? 'buildEnglishDarsiBooks'
+                                                     :bookLanguage == 'Pashto'? 'buildPashtoDarsiBooks'
+                                                      :"" ,
+                                                  )));
                                     },
                                   ),
                                   //"Darsi Books",
@@ -402,7 +469,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                                        :bookLanguage == 'Arabic'?'دارسي':'',
                                     style: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black,
+                                        color: AppColor.kTextColor,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],

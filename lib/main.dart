@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:islamic_book_app/Utility/colors.dart';
 
 import 'View/home_screen.dart';
 
@@ -8,10 +10,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  //   systemNavigationBarColor: AppColor.kgreyColor,
-  //   statusBarColor: AppColor.kgreyColor
-  // ));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor: AppColor.kgreyColor,
+    statusBarColor: AppColor.kgreyColor,
+  ));
 
   runApp(const MyApp());
 }

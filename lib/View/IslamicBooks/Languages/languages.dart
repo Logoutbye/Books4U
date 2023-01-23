@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:islamic_book_app/Utility/colors.dart';
 import '../Books/books_categories.dart';
 
 class Languages extends StatefulWidget {
@@ -12,13 +13,13 @@ class _LanguagesState extends State<Languages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColor.kgreyColor,
       appBar: AppBar(
         title: Text(
           "Select Language",
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: AppColor.kgreyColor,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
@@ -69,20 +70,11 @@ class _LanguagesState extends State<Languages> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    IconButton(
-                                      icon: ImageIcon(
+                                      ImageIcon(
                                         AssetImage("assets/images/urdu.png"),
+                                        size: 72,
                                       ),
-                                      iconSize: 72,
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BooksCategories(
-                                                      language: 'Urdu',
-                                                    )));
-                                      },
-                                    ),
+                                      SizedBox(height: MediaQuery.of(context).size.height/100,),
                                     Text(
                                       "Urdu Books",
                                       style: TextStyle(
@@ -121,20 +113,12 @@ class _LanguagesState extends State<Languages> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    IconButton(
-                                      icon: ImageIcon(
+                                      ImageIcon(
                                         AssetImage(
                                             "assets/images/afghanistan.png"),
+                                            size: 72,
                                       ),
-                                      iconSize: 72,
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BooksCategories(
-                                                        language: 'Pashto')));
-                                      },
-                                    ),
+                                     SizedBox(height: MediaQuery.of(context).size.height/100,),
                                     Text(
                                       "Pashto Books",
                                       style: TextStyle(
@@ -179,19 +163,11 @@ class _LanguagesState extends State<Languages> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    IconButton(
-                                      icon: ImageIcon(
+                                      ImageIcon(
                                         AssetImage("assets/images/eng.png"),
+                                        size: 72,
                                       ),
-                                      iconSize: 72,
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BooksCategories(
-                                                        language: 'English')));
-                                      },
-                                    ),
+                                      SizedBox(height: MediaQuery.of(context).size.height/100,),
                                     Text(
                                       "English Books",
                                       style: TextStyle(
@@ -232,19 +208,12 @@ class _LanguagesState extends State<Languages> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    IconButton(
-                                      icon: ImageIcon(
+                                      ImageIcon(
                                         AssetImage("assets/images/arabic.png"),
+                                        size: 72,
                                       ),
-                                      iconSize: 72,
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BooksCategories(
-                                                        language: 'Arabic')));
-                                      },
-                                    ),
+                                      
+                                    SizedBox(height: MediaQuery.of(context).size.height/100,),
                                     Text(
                                       "Arabic Books",
                                       style: TextStyle(

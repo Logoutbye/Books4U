@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:islamic_book_app/View/MotivationalBooks/motivational_books.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Books/book_store.dart';
+import 'package:islamic_book_app/View/detailed.dart';
+
 import '../Model/navigation.dart';
 import '../Utility/colors.dart';
 import 'IslamicBooks/Languages/languages.dart';
+import 'Recommended_Books/recommended_books.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,24 +15,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int pageIndex = 0;
+  var bookCategory;
+
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-//  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-//     systemNavigationBarColor: AppColor.kgreyColor, // navigation bar color
-//     statusBarColor: Color.fromARGB(255, 0, 0, 0), // status bar color
-//   ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // theme: new ThemeData(scaffoldBackgroundColor: Colors.white),
+      theme: new ThemeData(scaffoldBackgroundColor: Colors.white),
       home: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(0),
-          child: AppBar(),
-        ),
         extendBody: true,
+        appBar: PreferredSize(preferredSize: Size.fromHeight(0), child: AppBar(backgroundColor: AppColor.kbgColor),),
         body: Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -46,15 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: size.height * .1,
                   ),
-                  // Image.asset(
-                  //   'assets/images/photo.png',
-                  //   fit: BoxFit.fill,
-                  //   alignment: Alignment.topCenter,
-                  //   // height: 225,
-                  //   // height: MediaQuery.of(context).size.height/225,
-                  //   // width: MediaQuery.of(context).size.width/450,
-                  //   // width: 450,
-                  // ),
                   RichText(
                       text: TextSpan(
                           style: Theme.of(context).textTheme.displaySmall,
@@ -84,33 +72,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                   builder: (context) => Languages()));
                             },
                             child: Container(
-                              padding: EdgeInsets.all(20),
-                              // ignore: sort_child_properties_last
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                      icon: ImageIcon(
-                                        AssetImage("assets/images/quran.png"),
-                                      ),
-                                      iconSize: 72,
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    Languages()));
-                                      },
-                                    ),
-                                    Text(
-                                      "Read Islamic Books",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: AppColor.kTextColor,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
+                              child: Center(
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                         ImageIcon(
+                                          AssetImage("assets/images/quran.png"),
+                                          size: 72,
+                                        ) ,
+                                      SizedBox(height: MediaQuery.of(context).size.height/100,),
+
+                                      Text(
+                                        "Read Islamic Books",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            color: AppColor.kTextColor,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                               decoration: BoxDecoration(
@@ -126,39 +108,37 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           //second
                           InkWell(
+                            splashColor: AppColor.kIconOnPressColor,
                             onTap: () {
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) => MotivationalBooks()));
+
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => MotivationalBooks()));
+                                builder: (context) => BookStore(Category:'NavigateToMotivationalBooks'
+                                )));
                             },
                             child: Container(
-                              padding: EdgeInsets.all(20),
-                              // ignore: sort_child_properties_last
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                      icon: ImageIcon(
-                                        AssetImage(
-                                            "assets/images/motivation.png"),
-                                      ),
-                                      iconSize: 72,
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MotivationalBooks()));
-                                      },
-                                    ),
-                                    Text(
-                                      "Motivational Books",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: AppColor.kTextColor,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
+                              child: Center(
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ImageIcon(
+                                          AssetImage(
+                                              "assets/images/motivation.png"), 
+                                              size: 72,       
+                                        ),
+                                        SizedBox(height: MediaQuery.of(context).size.height/100,),
+                                      Text(
+                                        "Motivational Books",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            color: AppColor.kTextColor,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                               decoration: BoxDecoration(
@@ -175,7 +155,74 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 40,
                       ),
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: RichText(
+                      text: TextSpan(
+                            style: Theme.of(context).textTheme.displaySmall,
+                            children: [
+                          TextSpan(
+                              text: "Recommended Books",
+                              style: TextStyle(color: Colors.white)),
+                      ])),
+                        ),
 
+
+                        InkWell(child: Text("press",style: TextStyle(color: Colors.white),),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>RecommendedBooks()));
+                        }),
+                       SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    
+                    // child: Row(
+                    //   children: <Widget>[
+                    //     ReadingListCard(
+                    //       image: "assets/images/bg.jpg",
+                    //       title: "Crushing & Influence",
+                    //       auth: "Gary Venchuk",
+                    //       rating: 4.9,
+                    //       pressDetails: () {
+                    //         Navigator.push(
+                    //           context,
+                    //           MaterialPageRoute(
+                    //             builder: (context) {
+                                  
+                    //               return DetailsScreen();
+                    //             },
+                    //           ),
+                    //         );
+                    //       }, 
+                    //        pressRead: (){},
+                    //     ),
+                    //     ReadingListCard(
+                    //       image: "assets/images/book.png",
+                    //       title: "Top Ten Business Hacks",
+                    //       auth: "Herman Joel",
+                    //       rating: 4.8, pressDetails: (){}, pressRead: (){},
+                    //     ),
+                    //     SizedBox(width: 30),
+                     
+                    //   ReadingListCard(
+                    //       image: "assets/images/book.png",
+                    //       title: "Top Ten Business Hacks",
+                    //       auth: "Herman Joel",
+                    //       rating: 4.8, pressDetails: (){}, pressRead: (){},
+                    //     ),
+                    //     SizedBox(width: 30),
+                     
+                    //   ReadingListCard(
+                    //       image: "assets/images/book.png",
+                    //       title: "Top Ten Business Hacks",
+                    //       auth: "Herman Joel",
+                    //       rating: 4.8, pressDetails: (){}, pressRead: (){},
+                    //     ),
+                    //     SizedBox(width: 30),
+                    //   ],
+                    // ),
+                  ),
+                
+        
                       // Row(
                       //   crossAxisAlignment: CrossAxisAlignment.center,
                       //   mainAxisAlignment: MainAxisAlignment.center,
@@ -286,7 +333,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       //   mainAxisAlignment: MainAxisAlignment.center,
                       //   children: [
                       //     //Seven
-
+        
                       //     InkWell(
                       //       onTap: () {
                       //         Navigator.of(context).push(MaterialPageRoute(

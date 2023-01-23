@@ -6,6 +6,14 @@ class AppColor {
   static const Color  kTextColor = Color(0xFF000000);
   static const Color kbgColor  = Color(0xFFFFFFFF);
   static const Color kIconColor  = Color(0xFF364f6b);
-  static const Color kIconOnPressColor  =Color(0xFF3fc1c9) ;
+  static const Color kIconOnPressColor  =Color(0xFF3FC1C9) ;
+
+ static const kBlackColor = Color(0xFF393939);
+static const kLightBlackColor = Color(0xFF8F8F8F);
+static const kIconColorr = Color(0xFFF48A37);
+static const kProgressIndicator = Color(0xFFBE7066);
+
+final kShadowColor = Color(0xFFD3D3D3).withOpacity(.84);
+
   
 }

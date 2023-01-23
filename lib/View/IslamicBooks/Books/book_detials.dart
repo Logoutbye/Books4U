@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islamic_book_app/Utility/colors.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Books/book_read.dart';
 
 import '../../../Model/data.dart';
 
@@ -17,6 +17,8 @@ class BookDetail extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     
     return Scaffold(
+        appBar: PreferredSize(preferredSize: Size.fromHeight(0), child: AppBar(backgroundColor: AppColor.kbgColor),),
+
       body: Stack(
         children: [
 
@@ -128,10 +130,17 @@ class BookDetail extends StatelessWidget {
                     width: size.width,
                     padding: EdgeInsets.only(top: 16, left: 32, right: 32, bottom: 32,),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppColor.kgreyColor,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
                       ),
+                       boxShadow: [
+                                BoxShadow(
+                                  color: AppColor.kIconColor.withOpacity(0.4),
+                                  spreadRadius: 2,
+                                  blurRadius: 2,
+                                  offset: Offset(0, 0),
+                                ),]
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -140,8 +149,11 @@ class BookDetail extends StatelessWidget {
 
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => SfPdfViewer.asset(book.path),
+        //                     Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => SfPdfViewer.asset(book.path),
+        // ));
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>BookRead(book: book)
         ));
                           },
                           child: Container(
@@ -183,7 +195,7 @@ class BookDetail extends StatelessWidget {
                         Container(
                           width: size.width / 2 - 44,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: AppColor.kgreyColor,
                             borderRadius: BorderRadius.all(
                               Radius.circular(15),
                             ),
