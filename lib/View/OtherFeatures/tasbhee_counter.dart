@@ -93,7 +93,7 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
               'Tasbīḥ',
               style: TextStyle(color: AppColor.kTextColor),
             ),
-            backgroundColor: AppColor.kbgColor,
+            backgroundColor: AppColor.kgreyColor,
             leading: IconButton(
               icon: const Icon(
                 Icons.arrow_back,

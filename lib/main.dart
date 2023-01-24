@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islamic_book_app/Utility/colors.dart';
+import 'package:islamic_book_app/View/first_screen.dart';
 
 import 'View/home_screen.dart';
 
@@ -16,8 +17,13 @@ void main() async {
   ));
 
   runApp(const MyApp());
+  await initilization(null);
 }
 
+
+Future initilization(BuildContext? context) async{
+  await Future.delayed(Duration(seconds: 3));
+}
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -30,7 +36,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: FirstScreen(),
     );
   }
 }
