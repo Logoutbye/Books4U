@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:islamic_book_app/Utility/colors.dart';
+import 'package:islamic_book_app/View/OtherFeatures/contribution.dart';
 import '../Books/books_categories.dart';
 
 class Languages extends StatefulWidget {
@@ -10,6 +12,35 @@ class Languages extends StatefulWidget {
 }
 
 class _LanguagesState extends State<Languages> {
+
+  late BannerAd _bannerAd;
+  bool isAdLoaded=false;
+
+ initBannerAd(){
+  _bannerAd= BannerAd(
+    size: AdSize.banner, 
+    adUnitId:AdsId.kAdUnitId , 
+    listener: BannerAdListener(
+      onAdLoaded: (ad) {
+        setState(() {
+          isAdLoaded=true;
+        });
+      },
+      onAdFailedToLoad: (ad, error) {
+        
+      },
+    ), 
+    request: AdRequest()
+    );
+    _bannerAd.load();
+ }
+
+@override
+  void initState() {
+    initBannerAd();  
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +66,7 @@ class _LanguagesState extends State<Languages> {
         decoration: BoxDecoration(
           //color: Colors.red,
           image: DecorationImage(
-            image: AssetImage('assets/images/bg.jpg'),
+            image: AssetImage('assets/images/bg_bg.png'),
             alignment: Alignment.topCenter,
             fit: BoxFit.fill,
           ),
@@ -101,9 +132,12 @@ class _LanguagesState extends State<Languages> {
                         //Pashto books container
                         InkWell(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (context) =>
+                            //         BooksCategories(language: 'Pashto')));
+                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
-                                    BooksCategories(language: 'Pashto')));
+                                    Contribution(text: "language",)));
                           },
                           child: Container(
                             //padding: EdgeInsets.all(29),
@@ -150,9 +184,12 @@ class _LanguagesState extends State<Languages> {
                         //English Container
                         InkWell(
                           onTap: () {
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (context) =>
+                            //         BooksCategories(language: 'English')));
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
-                                    BooksCategories(language: 'English')));
+                                    Contribution(text: "language",)));
                           },
                           child: Container(
                             //padding: EdgeInsets.all(15),
@@ -196,9 +233,12 @@ class _LanguagesState extends State<Languages> {
                         //Arabic Container
                         InkWell(
                           onTap: () {
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (context) =>
+                            //         BooksCategories(language: 'Arabic')));
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
-                                    BooksCategories(language: 'Arabic')));
+                                    Contribution(text: "language",)));
                           },
                           child: Container(
                             //padding: EdgeInsets.all(29),
@@ -242,6 +282,12 @@ class _LanguagesState extends State<Languages> {
           ),
         ),
       ),
+      bottomNavigationBar: isAdLoaded? Container(
+        decoration: BoxDecoration(color: AppColor.kgreyColor),
+        height: _bannerAd.size.height.toDouble(),
+        width: _bannerAd.size.width.toDouble(),
+        child:AdWidget(ad: _bannerAd) ,
+      ):SizedBox(),
     );
   }
 }

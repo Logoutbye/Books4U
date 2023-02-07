@@ -1,14 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:islamic_book_app/Utility/colors.dart';
 import 'package:islamic_book_app/View/first_screen.dart';
 
-import 'View/home_screen.dart';
 
 void main() async {
   // firebase intialization
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   await Firebase.initializeApp();
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -17,12 +18,6 @@ void main() async {
   ));
 
   runApp(const MyApp());
-  await initilization(null);
-}
-
-
-Future initilization(BuildContext? context) async{
-  await Future.delayed(Duration(seconds: 3));
 }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

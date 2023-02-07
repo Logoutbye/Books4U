@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:islamic_book_app/Utility/colors.dart';
 import 'package:islamic_book_app/View/IslamicBooks/Books/book_store.dart';
 
@@ -17,8 +18,34 @@ class _BooksCategoriesState extends State<BooksCategories>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   String bookLanguage = '';
+
+
+    late BannerAd _bannerAd;
+  bool isAdLoaded=false;
+
+ initBannerAd(){
+  _bannerAd= BannerAd(
+    size: AdSize.banner, 
+    adUnitId:AdsId.kAdUnitId , 
+    listener: BannerAdListener(
+      onAdLoaded: (ad) {
+        setState(() {
+          isAdLoaded=true;
+        });
+      },
+      onAdFailedToLoad: (ad, error) {
+        
+      },
+    ), 
+    request: AdRequest()
+    );
+    _bannerAd.load();
+ }
+
   @override
   void initState() {
+        initBannerAd();  
+
     bookLanguage = widget.language;
     super.initState();
     _controller = AnimationController(vsync: this);
@@ -56,7 +83,7 @@ class _BooksCategoriesState extends State<BooksCategories>
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/bg.jpg'),
+            image: AssetImage('assets/images/bg_bg.png'),
             alignment: Alignment.topCenter,
             fit: BoxFit.fill,
           ),
@@ -230,7 +257,6 @@ class _BooksCategoriesState extends State<BooksCategories>
                           },
                           child: Container(
                             padding: EdgeInsets.all(8),
-                            // ignore: sort_child_properties_last
                             child: SingleChildScrollView(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -370,7 +396,6 @@ class _BooksCategoriesState extends State<BooksCategories>
                           },
                           child: Container(
                             padding: EdgeInsets.all(8),
-                            // ignore: sort_child_properties_last
                             child: SingleChildScrollView(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -492,6 +517,13 @@ class _BooksCategoriesState extends State<BooksCategories>
           ),
         ),
       ),
+       bottomNavigationBar: isAdLoaded? Container(
+        decoration: BoxDecoration(color: AppColor.kgreyColor),
+        height: _bannerAd.size.height.toDouble(),
+        width: _bannerAd.size.width.toDouble(),
+        child:AdWidget(ad: _bannerAd) ,
+      ):SizedBox(),
     );
   }
+  
 }

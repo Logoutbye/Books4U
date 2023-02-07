@@ -19,7 +19,7 @@ class _FirstScreenState extends State<FirstScreen> {
       HomeScreen(),
       TasbheeCounter(),
       Qibla(),
-      Contribution(),
+      Contribution(text: "contribution",),
     ];
   @override
   Widget build(BuildContext context) {

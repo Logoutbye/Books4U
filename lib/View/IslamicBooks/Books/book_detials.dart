@@ -1,16 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:islamic_book_app/Utility/colors.dart';
 import 'package:islamic_book_app/View/IslamicBooks/Books/book_read.dart';
 
 import '../../../Model/data.dart';
 
 
-class BookDetail extends StatelessWidget {
+class BookDetail extends StatefulWidget {
 
   final Book book;
 
   BookDetail({required this.book});
 
+  @override
+  State<BookDetail> createState() => _BookDetailState();
+}
+
+class _BookDetailState extends State<BookDetail> {
+
+    late BannerAd _bannerAd;
+  bool isAdLoaded=false;
+
+ initBannerAd(){
+  _bannerAd= BannerAd(
+    size: AdSize.banner, 
+    adUnitId:AdsId.kAdUnitId , 
+    listener: BannerAdListener(
+      onAdLoaded: (ad) {
+        setState(() {
+          isAdLoaded=true;
+        });
+      },
+      onAdFailedToLoad: (ad, error) {
+        
+      },
+    ), 
+    request: AdRequest()
+    );
+    _bannerAd.load();
+ }
+
+@override
+  void initState() {
+    initBannerAd();  
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -24,9 +59,10 @@ class BookDetail extends StatelessWidget {
 
           Container(
             child: Hero(
-              tag: book.title,
+              
+              tag: widget.book.title,
               child: Image.asset(
-                book.image,
+                widget.book.image,
                 fit: BoxFit.fitWidth
               ),
             ),
@@ -83,13 +119,12 @@ class BookDetail extends StatelessWidget {
                         children: [
 
                           Text(
-                            book.title,),
+                            widget.book.title,),
 
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 8),
                             child: Row(
                               children: [
-
                                 Row(
                                   children: <Widget>[
 
@@ -107,7 +142,7 @@ class BookDetail extends StatelessWidget {
                                 ),
 
                                 Text(
-                                  book.score,),
+                                  widget.book.score,),
 
                               ],
                             ),
@@ -117,7 +152,7 @@ class BookDetail extends StatelessWidget {
                             child: SingleChildScrollView(
                               physics: BouncingScrollPhysics(),
                               child: Text(
-                                book.description,
+                                widget.book.description,
                               ),
                             ),
                           ),
@@ -155,7 +190,7 @@ class BookDetail extends StatelessWidget {
         //   builder: (context) => SfPdfViewer.asset(book.path),
         // ));
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) =>BookRead(book: book)
+          builder: (context) =>BookRead(book: widget.book)
         ));
                           },
                           child: Container(
@@ -243,35 +278,41 @@ class BookDetail extends StatelessWidget {
             ),
           ),
 
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: EdgeInsets.only(left: 32, bottom: (size.height * 0.5) - (75 / 2)),
-              child: Card(
-                elevation: 4,
-                margin: EdgeInsets.all(0),
-                clipBehavior: Clip.antiAlias,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
-                  ),
-                ),
-                child: Container(
-                  width: 75,
-                  height: 75,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(book.image), 
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // Align(
+          //   alignment: Alignment.bottomLeft,
+          //   child: Padding(
+          //     padding: EdgeInsets.only(left: 32, bottom: (size.height * 0.5) - (75 / 2)),
+          //     child: Card(
+          //       elevation: 4,
+          //       margin: EdgeInsets.all(0),
+          //       clipBehavior: Clip.antiAlias,
+          //       shape: RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.all(
+          //           Radius.circular(15),
+          //         ),
+          //       ),
+          //       child: Container(
+          //         width: 75,
+          //         height: 75,
+          //         decoration: BoxDecoration(
+          //           image: DecorationImage(
+          //             image: AssetImage(book.image), 
+          //             fit: BoxFit.cover,
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
         ],
       ),
+       bottomNavigationBar: isAdLoaded? Container(
+        decoration: BoxDecoration(color: AppColor.kgreyColor),
+        height: _bannerAd.size.height.toDouble(),
+        width: _bannerAd.size.width.toDouble(),
+        child:AdWidget(ad: _bannerAd) ,
+      ):SizedBox(),
     );
   }
 }

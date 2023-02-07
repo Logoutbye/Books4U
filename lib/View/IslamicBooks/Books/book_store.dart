@@ -1,9 +1,13 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:islamic_book_app/Model/data.dart';
 import 'package:islamic_book_app/Utility/colors.dart';
+import 'package:islamic_book_app/View/Firebase/Books/firebase_book_store.dart';
 import 'package:islamic_book_app/View/IslamicBooks/Books/book_detials.dart';
 import 'package:islamic_book_app/View/IslamicBooks/Books/book_read.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+
+import '../../Firebase/Books/firebase_book_read.dart';
 
 class BookStore extends StatefulWidget {
   String Category;
@@ -58,12 +62,45 @@ class _BookStoreState extends State<BookStore> {
   List<Book>  EnglishDarsiBooks = getEnglishDarsiBookList();
   List<Book> ArabicDarsiBooks = getArabicDarsiBookList(); 
 
+  // list to store book of firebase
+    List<dynamic> _files = [];
+  late BannerAd _bannerAd;
+  bool isAdLoaded=false;
+
+ initBannerAd(){
+  _bannerAd= BannerAd(
+    size: AdSize.banner, 
+    adUnitId:AdsId.kAdUnitId , 
+    listener: BannerAdListener(
+      onAdLoaded: (ad) {
+        setState(() {
+          isAdLoaded=true;
+        });
+      },
+      onAdFailedToLoad: (ad, error) {
+        
+      },
+    ), 
+    request: AdRequest()
+    );
+    _bannerAd.load();
+ }
+
+
+
 
   @override
   void initState() {
+        initBannerAd();  
+
     type = widget.Category;
+        print("to check type in local book store::${type}");
+
     book_type = widget.Category;
     print("build_books::${type}");
+
+        _getFiles();
+
 
     // TODO: implement initState
     super.initState();
@@ -75,7 +112,8 @@ class _BookStoreState extends State<BookStore> {
       backgroundColor: AppColor.kbgColor,
       appBar: AppBar(
         title: Text(
-          "Dicover Books",
+          // "${widget.Category}",
+          "Discover Books",
           style: TextStyle(color: AppColor.kTextColor),
         ),
         elevation: 0,
@@ -138,58 +176,170 @@ class _BookStoreState extends State<BookStore> {
                   topLeft: Radius.circular(40), ),
             ),
             child: Column(
+              
               children: [
-                Padding(
-                  padding: EdgeInsets.all(24),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "More Books",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Show all",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              // color: kPrimaryColor,
+                InkWell(
+                  onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyFireBaseStorageList(Category: type, MotivationalCategory: book_type,)));
+
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(24),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "More Books",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Icon(
-                            Icons.arrow_forward,
-                            size: 18,
-                            // color: kPrimaryColor,
-                          ),
-                        ],
-                      ),
-                    ],
+                            Row(
+                              children: [
+                                Text(
+                                  "Show all",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    // color: kPrimaryColor,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  size: 18,
+                                  // color: kPrimaryColor,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        // SizedBox(height: MediaQuery.of(context).size.height/90,),
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(children: [
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Text("Internet connection required for online books"))
+                                ],),
+                              ),
+
+                      ],
+                    ),
+                
                   ),
+                  
                 ),
                 //call Books Form Fire base
                 Container(
-                  height: 200,
-                  margin: EdgeInsets.only(bottom: 16),
-                  child: ListView(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    // children: buildAuthors(),
-                  ),
+                  height: MediaQuery.of(context).size.height/5,
+                  // margin: EdgeInsets.only(bottom: 8),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height/10,
+
+
+        child: _files.length == 0
+            ? Center(child: CircularProgressIndicator())
+            : ListView.builder(
+                itemCount: _files.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.only(left: 8,right: 8,bottom: 3),
+                    padding: EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                    color: AppColor.kgreyColor,
+                    border: Border.all(width: 1),
+                    borderRadius: BorderRadius.all(Radius.circular(29))),
+                    child: ListTile(
+                  leading: Icon(Icons.insert_drive_file),
+                  onTap: () async {
+                    String fileName = "${_files[index].name}";
+
+                    String urduPdfUrls = "";
+                    if (type == 'buildUrduDarsiBooks') {
+                      final ref = FirebaseStorage.instance.ref().child(
+                          'Books/Islamic Books/Urdu/general/$fileName');
+                      String url = await ref.getDownloadURL();
+                      setState(() {
+                        urduPdfUrls = url;
+                      });
+                    } else if (type == 'buildUrduFathwaBooks') {
+                      final ref = FirebaseStorage.instance.ref().child(
+                          'Books/Islamic Books/Urdu/Fathwa/$fileName');
+                      String url = await ref.getDownloadURL();
+                      setState(() {
+                        urduPdfUrls = url;
+                      });
+                    } else if (type == 'buildUrduFiqaBooks') {
+                      final ref = FirebaseStorage.instance
+                          .ref()
+                          .child('Books/Islamic Books/Urdu/Fiqa/$fileName');
+                      String url = await ref.getDownloadURL();
+                      setState(() {
+                        urduPdfUrls = url;
+                      });
+                    } else if (type == 'buildUrduTafseerBooks') {
+                      final ref = FirebaseStorage.instance.ref().child(
+                          'Books/Islamic Books/Urdu/Tafseer/$fileName');
+                      String url = await ref.getDownloadURL();
+                      setState(() {
+                        urduPdfUrls = url;
+                      });
+                    } else if (type == 'buildUrduHaditsBooks') {
+                      final ref = FirebaseStorage.instance.ref().child(
+                          'Books/Islamic Books/Urdu/Hadits/$fileName');
+                      String url = await ref.getDownloadURL();
+                      setState(() {
+                        urduPdfUrls = url;
+                      });
+                    } else if (type == 'buildUrduHistoricBooks') {
+                      final ref = FirebaseStorage.instance.ref().child(
+                          'Books/Islamic Books/Urdu/general/$fileName');
+                      String url = await ref.getDownloadURL();
+                      setState(() {
+                        urduPdfUrls = url;
+                      });
+                    } else if (book_type ==
+                        'NavigateToMotivationalBooks') {
+                      final ref = FirebaseStorage.instance
+                          .ref()
+                          .child('Books/Motivational/$fileName');
+                      String url = await ref.getDownloadURL();
+                      setState(() {
+                        urduPdfUrls = url;
+                      });
+                    }
+
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => FirebaseBookRead(
+                              url: urduPdfUrls,
+                              title: _files[index].name,
+                            )));
+                  },
+                  title: Text(_files[index].name),
+                    ),
+                  );
+                },
+              ),
+      ),
                 ),
               ],
             ),
           ),
         ],
       ),
+       bottomNavigationBar: isAdLoaded? Container(
+        decoration: BoxDecoration(color: AppColor.kgreyColor),
+        height: _bannerAd.size.height.toDouble(),
+        width: _bannerAd.size.width.toDouble(),
+        child:AdWidget(ad: _bannerAd) ,
+      ):SizedBox(),
     );
   }
 
@@ -324,7 +474,7 @@ class _BookStoreState extends State<BookStore> {
   }
 
   Widget buildBook(Book book, int index) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
@@ -377,16 +527,73 @@ class _BookStoreState extends State<BookStore> {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          book.title,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold,
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Text(
+                            book.title,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         // SizedBox(width: 11,),
-                        GestureDetector(
+                        // GestureDetector(
+                        //   onTap: (() {
+                        //     Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BookDetail(book: book)));
+                        //   }),
+
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //       color: AppColor.kIconOnPressColor,
+                        //       borderRadius: BorderRadius.all(
+                        //         Radius.circular(15),
+                        //       ),
+                        //       boxShadow: [
+                        //         BoxShadow(
+                        //           color: AppColor.kIconOnPressColor.withOpacity(0.4),
+                        //           spreadRadius: 2,
+                        //           blurRadius: 2,
+                        //           offset: Offset(0, 0),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //     child: Padding(
+                        //       padding: const EdgeInsets.all(8.0),
+                        //       child: Center(
+                        //         child: Row(
+                        //           mainAxisAlignment: MainAxisAlignment.center,
+                        //           children: [
+                        //             Text(
+                        //               "Details",
+                        //             ),
+                        //             SizedBox(
+                        //               width: 8,
+                        //             ),
+                        //             Icon(
+                        //               Icons.keyboard_arrow_down,
+                        //               color: AppColor.kIconColor,
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        //   // child: Text(
+                        //   //   "Details",
+                        //   //   style: TextStyle(
+                        //   //     fontSize: 14,
+                        //   //     color: AppColor.kIconOnPressColor,
+                        //   //     fontWeight: FontWeight.bold,
+                        //   //   ),
+                        //   // ),
+                        // ),
+                      ]),
+                      SizedBox(height: 8,),
+                      Row(
+                        children: [
+                           GestureDetector(
                           onTap: (() {
                             Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BookDetail(book: book)));
                           }),
@@ -436,8 +643,8 @@ class _BookStoreState extends State<BookStore> {
                           //   ),
                           // ),
                         ),
-                      ]),
-                      SizedBox(height: 8,)
+                        ],
+                      ),
                 ],
               ),
             ),
@@ -446,4 +653,66 @@ class _BookStoreState extends State<BookStore> {
       ),
     );
   }
+
+// to get files form forebase
+   void _getFiles() async {
+    if (type == 'buildUrduDarsiBooks') {
+      var files = await FirebaseStorage.instance
+          .ref()
+          .child('Books/Islamic Books/Urdu/general/')
+          .listAll();
+      setState(() {
+        _files = files.items;
+      });
+    } else if (type == 'buildUrduFathwaBooks') {
+      var files = await FirebaseStorage.instance
+          .ref()
+          .child('Books/Islamic Books/Urdu/general/')
+          .listAll();
+      setState(() {
+        _files = files.items;
+      });
+    } else if (type == 'buildUrduFiqaBooks') {
+      var files = await FirebaseStorage.instance
+          .ref()
+          .child('Books/Islamic Books/Urdu/Fiqa/')
+          .listAll();
+      setState(() {
+        _files = files.items;
+      });
+    } else if (type == 'buildUrduTafseerBooks') {
+      var files = await FirebaseStorage.instance
+          .ref()
+          .child('Books/Islamic Books/Urdu/Tafseer/')
+          .listAll();
+      setState(() {
+        _files = files.items;
+      });
+    } else if (type == 'buildUrduHaditsBooks') {
+      var files = await FirebaseStorage.instance
+          .ref()
+          .child('Books/Islamic Books/Urdu/Hadits/')
+          .listAll();
+      setState(() {
+        _files = files.items;
+      });
+    } else if (type == 'buildUrduHistoricBooks') {
+      var files = await FirebaseStorage.instance
+          .ref()
+          .child('Books/Islamic Books/Urdu/general/')
+          .listAll();
+      setState(() {
+        _files = files.items;
+      });
+    } else if (book_type == 'NavigateToMotivationalBooks') {
+      var files = await FirebaseStorage.instance
+          .ref()
+          .child('Books/Motivational/')
+          .listAll();
+      setState(() {
+        _files = files.items;
+      });
+    }
+  }
+
 }

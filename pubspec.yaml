@@ -45,14 +45,20 @@ dependencies:
   flutter_svg: ^1.1.6
   geolocator: ^9.0.1
   floating_draggable_widget: ^2.1.2
+
+  # paths
   file_picker: ^5.2.4
-  flutter_native_splash: ^2.2.17
+  path: ^1.8.2 
+  path_provider: ^2.0.12
+
+
 
 
   #firebase dependcies
   firebase_core: ^2.4.1
   firebase_storage: ^11.0.10
-
+  cloud_firestore: ^4.3.1
+  google_mobile_ads: ^2.3.0
   
   
 dev_dependencies:
@@ -64,6 +70,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_native_splash: ^2.2.17
+
   
 flutter_native_splash:
  color: "#ffffff"
@@ -99,7 +107,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
-    - assets/Books_Images/
     - assets/images/
     - assets/Islamic_Books/Arabic/Darsi/
     - assets/Islamic_Books/Arabic/Fathwa/

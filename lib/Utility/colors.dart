@@ -13,6 +13,9 @@ static const kIconColorr = Color(0xFFF48A37);
 static const kProgressIndicator = Color(0xFFBE7066);
 
 final kShadowColor = Color(0xFFD3D3D3).withOpacity(.84);
+}
 
-  
+class AdsId{
+  AdsId._();
+  static const kAdUnitId = "ca-app-pub-9923979057032791/1254589929";
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:islamic_book_app/Model/data.dart';
-import 'package:islamic_book_app/View/IslamicBooks/Books/book_detials.dart';
 import 'package:islamic_book_app/View/IslamicBooks/Books/book_read.dart';
 import 'package:islamic_book_app/View/IslamicBooks/Books/book_store.dart';
-import '../Model/navigation.dart';
 import '../Utility/colors.dart';
+import 'IslamicBooks/Books/book_detials.dart';
 import 'IslamicBooks/Languages/languages.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,8 +16,48 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var bookCategory;
-  
-  var index=0;
+  var index = 0;
+  // static const likedkey ='liked_key';
+  // static bool? liked ;
+
+  // ads
+  late BannerAd _bannerAd;
+  bool isAdLoaded = false;
+  initBannerAd() {
+    _bannerAd = BannerAd(
+        size: AdSize.banner,
+        adUnitId: AdsId.kAdUnitId,
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            setState(() {
+              isAdLoaded = true;
+            });
+          },
+          onAdFailedToLoad: (ad, error) {},
+        ),
+        request: AdRequest());
+    _bannerAd.load();
+  }
+
+  @override
+  void initState() {
+    initBannerAd();
+
+    // _restorePresisitedPrefrences();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  // Future<void> _restorePresisitedPrefrences() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   var liked =await prefs.getBool(likedkey);
+  //   setState(() =>this.liked=liked!);
+  // }
+  //   Future<void> _getPresisitedPrefrences( ) async {
+  //     setState(() =>this.liked= !liked);
+  //   final prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool(likedkey,liked);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +75,11 @@ class _HomeScreenState extends State<HomeScreen> {
           width: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/bg.jpg'),
-              alignment: Alignment.topCenter,
-              fit: BoxFit.fill,
-            ),
+                image: AssetImage('assets/images/bg_bg.png'),
+                alignment: Alignment.topCenter,
+                fit: BoxFit.fill,
+                colorFilter:
+                    ColorFilter.mode(Colors.black, BlendMode.softLight)),
           ),
           child: Center(
             child: SingleChildScrollView(
@@ -188,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       // List view of REcommended Book
                       Container(
-                        height: MediaQuery.of(context).size.height / 3.5,
+                        height: MediaQuery.of(context).size.height / 3.3,
                         width: MediaQuery.of(context).size.width / 1,
                         decoration: BoxDecoration(color: Colors.transparent),
                         child: ListView(
@@ -207,62 +248,35 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        // bottomNavigationBar: BottomNavigationBarr(),
-      //   bottomNavigationBar: NavigationBarTheme(
-      //     data:NavigationBarThemeData(
-      //     indicatorColor: AppColor.kIconOnPressColor,
-      //     ),
-      //     child: NavigationBar(
-      //       backgroundColor: AppColor.kgreyColor,
-      //       selectedIndex: index,
-      //       onDestinationSelected: (index) => 
-      //       setState(() {
-      //         this.index=index;
-      //       }),
-      //       destinations: [
-      //         NavigationDestination(icon: Icon(
-      //               Icons.home_outlined,
-      //               color:AppColor.kIconColor,
-      //             ), label: "Home"),
-      //         NavigationDestination(icon: ImageIcon(
-      //         AssetImage("assets/images/tasbih1.png"),
-      //               color: AppColor.kIconColor,
-      //             ), label: "Tashbhee"),
-      //         NavigationDestination(icon: ImageIcon(
-      //         AssetImage("assets/images/qibla1.png"),
-      //         color: AppColor.kIconColor,
-      //             ), label: "Qibla"),
-      //         NavigationDestination(icon: Icon(
-      //               Icons.add_card_outlined,
-      //               color:AppColor.kIconColor,
-      //             ), label: "Contribution"),
-      //       ]
-      //       ),
-      //   ),
-      // 
+        bottomNavigationBar: isAdLoaded
+            ? Container(
+                decoration: BoxDecoration(color: AppColor.kgreyColor),
+                height: _bannerAd.size.height.toDouble(),
+                width: _bannerAd.size.width.toDouble(),
+                child: AdWidget(ad: _bannerAd),
+              )
+            : SizedBox(),
       ),
     );
   }
 
-  List<Book> UrduHistoricBooks = getUrduHistoricBookList();
+  List<Book> getRecommendedBookListt = getRecommendedBookList();
 
   List<Widget> buildRecommendedBooks() {
     List<Widget> list = [];
     //  Recommended Books
 
-    for (var i = 0; i < UrduHistoricBooks.length; i++) {
-      list.add(buildRecommendedBook(UrduHistoricBooks[i], i));
+    for (var i = 0; i < getRecommendedBookListt.length; i++) {
+      list.add(buildRecommendedBook(getRecommendedBookListt[i], i));
     }
     return list;
   }
 
   Widget buildRecommendedBook(Book book, int index) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.only(left: 24, bottom: 40),
-      // height: 300,
-      // width: 200,
-      height: MediaQuery.of(context).size.height / 4,
+      height: MediaQuery.of(context).size.height / 1,
       width: MediaQuery.of(context).size.width / 2,
       child: Stack(
         children: <Widget>[
@@ -272,11 +286,6 @@ class _HomeScreenState extends State<HomeScreen> {
               borderRadius: BorderRadius.circular(29),
             ),
           ),
-
-          // Padding(
-          // padding: EdgeInsets.only(left: 32, bottom: (size.height * 1) - (72 / 2)),
-          // padding: EdgeInsets.all(8),
-          // child:
           Positioned(
             top: 0,
             left: 0,
@@ -305,8 +314,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             // ),
           ),
-          // Text("ff"),
-
           // Favourite
           Positioned(
             top: 5,
@@ -314,15 +321,23 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: <Widget>[
                 IconButton(
-                  icon: Icon(
-                    Icons.favorite_border,
-                  ),
-                  onPressed: () {},
-                ),
+                  icon: book.liked
+                      ? Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                        )
+                      : Icon(
+                          Icons.favorite_border,
+                          // color: Colors.red,
+                        ),
+                  onPressed: () {
+                    book.liked = !book.liked;
+                    setState(() {});
+                  },
+                )
               ],
             ),
           ),
-
           Positioned(
             top: 50,
             right: 10,
@@ -357,50 +372,74 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Positioned(
-            top: 110,
+            bottom: 0,
+            left: 0,
+            right: 0,
             child: Container(
-              height: 85,
-              width: 202,
+              height: MediaQuery.of(context).size.height / 10,
+              width: MediaQuery.of(context).size.width / 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 14),
-                    child: RichText(
-                      maxLines: 2,
-                      text: TextSpan(
-                        style: TextStyle(color: AppColor.kTextColor),
-                        children: [
-                          TextSpan(
-                            text: book.title,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                      child:Directionality(
+                        textDirection: TextDirection.rtl,
+
+                        child: Text(
+                          book.title,
+                          style: TextStyle(color: AppColor.kTextColor,
+                          fontWeight: FontWeight.bold,
                           ),
-                        ],
+                      
+                        ),
                       ),
+                      //  RichText(
+                      //   textDirection: TextDirection.ltr,
+                      //   maxLines: 2,
+                      //   text: TextSpan(
+                      //     style: TextStyle(color: AppColor.kTextColor),
+                      //     children: [
+                      //       TextSpan(
+                      //         text: book.title,
+                      //         style: TextStyle(
+                      //           fontWeight: FontWeight.bold,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     ),
                   ),
                   Spacer(),
                   Row(
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left: 8),
+                        padding: const EdgeInsets.only(left: 0),
                         child: GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => BookRead(book: book)));
                           },
                           child: Container(
-                            width: size.width / 2 - 110,
+                            width: MediaQuery.of(context).size.width / 4.5,
+                            height: MediaQuery.of(context).size.height / 20,
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: Colors.grey,
                                 width: 1,
                               ),
                               color: AppColor.kIconOnPressColor,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
+                              // borderRadius: BorderRadius.all(
+                              //   Radius.circular(15),
+                              // ),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(0),
+                                topRight: Radius.circular(15),
+                                bottomLeft: Radius.circular(29),
+                                bottomRight: Radius.circular(0),
                               ),
                               boxShadow: [
                                 BoxShadow(
@@ -420,49 +459,61 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Spacer(),
                       Padding(
-                        padding: const EdgeInsets.only(right: 12),
+                        padding: const EdgeInsets.only(right: 0),
                         child: GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => BookDetail(book: book)));
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColor.kgreyColor,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: AppColor.kgreyColor,
+                                // borderRadius: BorderRadius.all(
+                                //   Radius.circular(15),
+                                // ),
+                          
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(0),
+                                  bottomLeft: Radius.circular(0),
+                                  bottomRight: Radius.circular(29),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.4),
+                                    spreadRadius: 2,
+                                    blurRadius: 2,
+                                    offset: Offset(0, 0),
+                                  ),
+                                ],
+                                border: Border.all(
+                                  color: Colors.grey,
+                                  width: 1,
+                                ),
                               ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.4),
-                                  spreadRadius: 2,
-                                  blurRadius: 2,
-                                  offset: Offset(0, 0),
+                              width: MediaQuery.of(context).size.width / 4.5,
+                              height: MediaQuery.of(context).size.height / 20,
+                              padding: EdgeInsets.symmetric(vertical: 8),
+                              alignment: Alignment.center,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5),
+                                      child: Text("Details"),
+                                    ),
+                                    SizedBox(),
+                                    Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: AppColor.kIconColor,
+                                      size: 20,
+                                    ),
+                                  ],
                                 ),
-                              ],
-                              border: Border.all(
-                                color: Colors.grey,
-                                width: 1,
                               ),
-                            ),
-                            width: size.width / 2 - 110,
-                            padding: EdgeInsets.symmetric(vertical: 8),
-                            alignment: Alignment.center,
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text("Details"),
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: AppColor.kIconColor,
-                                  size: 20,
-                                ),
-                              ],
                             ),
                           ),
                         ),

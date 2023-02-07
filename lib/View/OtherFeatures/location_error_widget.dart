@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:islamic_book_app/Utility/colors.dart';
 
 class LocationErrorWidget extends StatelessWidget {
   final String? error;
@@ -29,6 +30,15 @@ class LocationErrorWidget extends StatelessWidget {
             ),
             box,
             ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+       backgroundColor: AppColor.kIconOnPressColor,
+       side: BorderSide(width:1, color:AppColor.kgreyColor), 
+       elevation: 3, //elevation of button
+       shape: RoundedRectangleBorder( 
+                borderRadius: BorderRadius.circular(25)
+            ),
+        padding: EdgeInsets.all(20) 
+   ),
               child: Text("Retry"),
               onPressed: () {
                 if (callback != null) callback!();

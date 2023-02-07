@@ -1,5 +1,6 @@
 import 'package:floating_draggable_widget/floating_draggable_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:islamic_book_app/Utility/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,7 +29,7 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
   Future<void> _resetCounter() async {
     final SharedPreferences prefs = await _prefs;
     // final counter = prefs.remove('counter');
-    final counter = prefs.clear();
+    // final counter = prefs.clear();
 
     setState(() {
       // _counter = prefs.setInt('counter', 0).then((bool success) {
@@ -38,8 +39,32 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
     });
   }
 
+
+  late BannerAd _bannerAd;
+  bool isAdLoaded=false;
+ initBannerAd(){
+  _bannerAd= BannerAd(
+    size: AdSize.banner, 
+    adUnitId:AdsId.kAdUnitId , 
+    listener: BannerAdListener(
+      onAdLoaded: (ad) {
+        setState(() {
+          isAdLoaded=true;
+        });
+      },
+      onAdFailedToLoad: (ad, error) {
+        
+      },
+    ), 
+    request: AdRequest()
+    );
+    _bannerAd.load();
+ }
+
   @override
   void initState() {
+        initBannerAd();  
+
     super.initState();
     _counter = _prefs.then((SharedPreferences prefs) {
       return prefs.getInt('counter') ?? 0;
@@ -121,7 +146,7 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
             width: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/bg.jpg'),
+                image: AssetImage('assets/images/bg_bg.png'),
                 alignment: Alignment.topCenter,
                 fit: BoxFit.fill,
               ),
@@ -160,7 +185,14 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
                   // }
                   ),
             ),
-          )),
+          ),
+           bottomNavigationBar: isAdLoaded? Container(
+        decoration: BoxDecoration(color: AppColor.kgreyColor),
+        height: _bannerAd.size.height.toDouble(),
+        width: _bannerAd.size.width.toDouble(),
+        child:AdWidget(ad: _bannerAd) ,
+      ):SizedBox(),
+      ),
     );
   }
 }
