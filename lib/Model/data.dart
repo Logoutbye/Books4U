@@ -15,13 +15,29 @@ class Book {
 //REcommeded Books
 List<Book> getRecommendedBookList(){
   return <Book>[ 
-    
+       Book(
+      "How to Motivate Yourself and Others",
+      "To achieve goals, individuals and organizations must understand how to effectively"
+      "Motivate themselves and others. We review three broad strategies that people employ to increase motivation: giving feedback, setting goal targets, and applying incentives.Although each of these strategies can effectively motivate action under certain circumstances and among certain people, they can also result in unintended consequences: not helping or even hurting motivation. For example, employers may give positive feedback that leads employees to relax their effort or negative feedback that undermines employees’ commitment, organizations may set goals that are overly ambitious and consequently reduce motivation, and certain incentives might appear attractive before pursuing an action but uncertain incentives better motivate action during goal pursuit. By identifying when and how these common motivational strategies work versus fail, we are able to prescribe a specific set of guidelines that will help people understand how to motivate themselves and others.",
+      "4.14",
+      "assets/Motivational_Book/10. How to Motivate Yourself and Others_ Intended and Unintended Consequences author Juliana Schroeder, Ayelet Fishbach.png",
+      "assets/Motivational_Book/10. How to Motivate Yourself and Others_ Intended and Unintended Consequences author Juliana Schroeder, Ayelet Fishbach.pdf",
+      false
+    ),
         Book(
       "تفسیر الاصول",
       "Taiseer ul Usool Sharh Urdu Tasheel ul Usool By Maulana Muhammad Fuzail Quraishi تیسیر الاصول شرح اردو تسہیل الاصول  ",
       "4.14",
       "assets/Islamic_Books/Urdu/Darsi/تفسیر الاصول.png",
       "assets/Islamic_Books/Urdu/Darsi/تفسیر الاصول.pdf",
+      false
+    ),
+          Book(
+      "Motivation author Basic\nKnowledge 101",
+      "Motivation is a theoretical construct used to explain behavior. It represents the reasons for people’s actions, desires, and needs. Motivation can also be defined as one’s direction to behavior, or what causes a person to want to repeat a behavior and vice versa.[1] A motive is what prompts the person to act in a certain way, or at least develop an inclination for specific behavior.",
+      "4.14",
+      "assets/Motivational_Book/08. Motivation author Basic Knowledge 101.png",
+      "assets/Motivational_Book/08. Motivation author Basic Knowledge 101.pdf",
       false
     ),
     Book(

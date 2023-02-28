@@ -114,20 +114,23 @@ class _TasbheeCounterState extends State<TasbheeCounter> {
       },
       mainScreenWidget: Scaffold(
           appBar: AppBar(
-            title: const Text(
-              'Tasbīḥ',
-              style: TextStyle(color: AppColor.kTextColor),
+            title: Padding(
+              padding: EdgeInsets.only(left: 24),
+              child: const Text(
+                'Tasbīḥ',
+                style: TextStyle(color: AppColor.kTextColor),
+              ),
             ),
             backgroundColor: AppColor.kgreyColor,
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back,
-                color: AppColor.kTextColor,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
+            // leading: IconButton(
+            //   icon: const Icon(
+            //     Icons.arrow_back,
+            //     color: AppColor.kTextColor,
+            //   ),
+            //   onPressed: () {
+            //     Navigator.pop(context);
+            //   },
+            // ),
             actions: [
               IconButton(
                   onPressed: () {

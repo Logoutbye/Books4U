@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -6,6 +9,7 @@ import 'package:islamic_book_app/Utility/colors.dart';
 import 'package:islamic_book_app/View/Firebase/Books/firebase_book_store.dart';
 import 'package:islamic_book_app/View/IslamicBooks/Books/book_detials.dart';
 import 'package:islamic_book_app/View/IslamicBooks/Books/book_read.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../Firebase/Books/firebase_book_read.dart';
 
@@ -19,6 +23,7 @@ class BookStore extends StatefulWidget {
 }
 
 class _BookStoreState extends State<BookStore> {
+
   String type = '';
   String book_type= '';
 
@@ -64,34 +69,42 @@ class _BookStoreState extends State<BookStore> {
 
   // list to store book of firebase
     List<dynamic> _files = [];
-  late BannerAd _bannerAd;
-  bool isAdLoaded=false;
+    
+     late bool isFilesLoaded;
+//   late BannerAd _bannerAd;
+//   bool isAdLoaded=false;
 
- initBannerAd(){
-  _bannerAd= BannerAd(
-    size: AdSize.banner, 
-    adUnitId:AdsId.kAdUnitId , 
-    listener: BannerAdListener(
-      onAdLoaded: (ad) {
-        setState(() {
-          isAdLoaded=true;
-        });
-      },
-      onAdFailedToLoad: (ad, error) {
+//  initBannerAd(){
+//   _bannerAd= BannerAd(
+//     size: AdSize.banner, 
+//     adUnitId:AdsId.kAdUnitId , 
+//     listener: BannerAdListener(
+//       onAdLoaded: (ad) {
+//         setState(() {
+//           isAdLoaded=true;
+//         });
+//       },
+//       onAdFailedToLoad: (ad, error) {
         
-      },
-    ), 
-    request: AdRequest()
-    );
-    _bannerAd.load();
- }
+//       },
+//     ), 
+//     request: AdRequest()
+//     );
+//     _bannerAd.load();
+//  }
 
 
 
 
   @override
   void initState() {
-        initBannerAd();  
+        // initBannerAd(); 
+            isFilesLoaded =true;
+    Future.delayed(Duration(seconds: 1),(){
+      setState(() {
+        isFilesLoaded=false;
+      });
+    }); 
 
     type = widget.Category;
         print("to check type in local book store::${type}");
@@ -108,6 +121,8 @@ class _BookStoreState extends State<BookStore> {
 
   @override
   Widget build(BuildContext context) {
+
+    Connectivity connectivity= Connectivity();
     return Scaffold(
       backgroundColor: AppColor.kbgColor,
       appBar: AppBar(
@@ -244,102 +259,120 @@ class _BookStoreState extends State<BookStore> {
                     height: MediaQuery.of(context).size.height/10,
 
 
-        child: _files.length == 0
-            ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                itemCount: _files.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.only(left: 8,right: 8,bottom: 3),
-                    padding: EdgeInsets.all(3),
-                    decoration: BoxDecoration(
-                    color: AppColor.kgreyColor,
-                    border: Border.all(width: 1),
-                    borderRadius: BorderRadius.all(Radius.circular(29))),
-                    child: ListTile(
-                  leading: Icon(Icons.insert_drive_file),
-                  onTap: () async {
-                    String fileName = "${_files[index].name}";
+        child: StreamBuilder<ConnectivityResult>(
+          stream: connectivity.onConnectivityChanged,
+          builder: (context, snapshot) {
+          return InternetConnectivityWidget(snapshot: snapshot, widget:
+           isFilesLoaded? ListView.separated(
+              
+              itemBuilder: ((context, index) => CardSkeleton()), 
+              separatorBuilder: ((context, index) => SizedBox()),
+              itemCount: 10):
+              Center(
+                child:_files.length >0? ListView.builder(
+                  itemCount: _files.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.only(left: 8,right: 8,bottom: 3),
+                      padding: EdgeInsets.all(3),
+                      decoration: BoxDecoration(
+                      color: AppColor.kgreyColor,
+                      border: Border.all(width: 1),
+                      borderRadius: BorderRadius.all(Radius.circular(29))),
+                      child: ListTile(
+                    leading: Icon(Icons.insert_drive_file),
+                    onTap: () async {
+                      
+                      String fileName = "${_files[index].name}";
 
-                    String urduPdfUrls = "";
-                    if (type == 'buildUrduDarsiBooks') {
-                      final ref = FirebaseStorage.instance.ref().child(
-                          'Books/Islamic Books/Urdu/general/$fileName');
-                      String url = await ref.getDownloadURL();
-                      setState(() {
-                        urduPdfUrls = url;
-                      });
-                    } else if (type == 'buildUrduFathwaBooks') {
-                      final ref = FirebaseStorage.instance.ref().child(
-                          'Books/Islamic Books/Urdu/Fathwa/$fileName');
-                      String url = await ref.getDownloadURL();
-                      setState(() {
-                        urduPdfUrls = url;
-                      });
-                    } else if (type == 'buildUrduFiqaBooks') {
-                      final ref = FirebaseStorage.instance
-                          .ref()
-                          .child('Books/Islamic Books/Urdu/Fiqa/$fileName');
-                      String url = await ref.getDownloadURL();
-                      setState(() {
-                        urduPdfUrls = url;
-                      });
-                    } else if (type == 'buildUrduTafseerBooks') {
-                      final ref = FirebaseStorage.instance.ref().child(
-                          'Books/Islamic Books/Urdu/Tafseer/$fileName');
-                      String url = await ref.getDownloadURL();
-                      setState(() {
-                        urduPdfUrls = url;
-                      });
-                    } else if (type == 'buildUrduHaditsBooks') {
-                      final ref = FirebaseStorage.instance.ref().child(
-                          'Books/Islamic Books/Urdu/Hadits/$fileName');
-                      String url = await ref.getDownloadURL();
-                      setState(() {
-                        urduPdfUrls = url;
-                      });
-                    } else if (type == 'buildUrduHistoricBooks') {
-                      final ref = FirebaseStorage.instance.ref().child(
-                          'Books/Islamic Books/Urdu/general/$fileName');
-                      String url = await ref.getDownloadURL();
-                      setState(() {
-                        urduPdfUrls = url;
-                      });
-                    } else if (book_type ==
-                        'NavigateToMotivationalBooks') {
-                      final ref = FirebaseStorage.instance
-                          .ref()
-                          .child('Books/Motivational/$fileName');
-                      String url = await ref.getDownloadURL();
-                      setState(() {
-                        urduPdfUrls = url;
-                      });
-                    }
+                      String urduPdfUrls = "";
+                      if (type == 'buildUrduDarsiBooks') {
+                        final ref = FirebaseStorage.instance.ref().child(
+                            'Books/Islamic Books/Urdu/general/$fileName');
+                        String url = await ref.getDownloadURL();
+                        setState(() {
+                          urduPdfUrls = url;
+                        });
+                      } else if (type == 'buildUrduFathwaBooks') {
+                        final ref = FirebaseStorage.instance.ref().child(
+                            'Books/Islamic Books/Urdu/Fathwa/$fileName');
+                        String url = await ref.getDownloadURL();
+                        setState(() {
+                          urduPdfUrls = url;
+                        });
+                      } else if (type == 'buildUrduFiqaBooks') {
+                        final ref = FirebaseStorage.instance
+                            .ref()
+                            .child('Books/Islamic Books/Urdu/Fiqa/$fileName');
+                        String url = await ref.getDownloadURL();
+                        setState(() {
+                          urduPdfUrls = url;
+                        });
+                      } else if (type == 'buildUrduTafseerBooks') {
+                        final ref = FirebaseStorage.instance.ref().child(
+                            'Books/Islamic Books/Urdu/Tafseer/$fileName');
+                        String url = await ref.getDownloadURL();
+                        setState(() {
+                          urduPdfUrls = url;
+                        });
+                      } else if (type == 'buildUrduHaditsBooks') {
+                        final ref = FirebaseStorage.instance.ref().child(
+                            'Books/Islamic Books/Urdu/Hadits/$fileName');
+                        String url = await ref.getDownloadURL();
+                        setState(() {
+                          urduPdfUrls = url;
+                        });
+                      } else if (type == 'buildUrduHistoricBooks') {
+                        final ref = FirebaseStorage.instance.ref().child(
+                            'Books/Islamic Books/Urdu/general/$fileName');
+                        String url = await ref.getDownloadURL();
+                        setState(() {
+                          urduPdfUrls = url;
+                        });
+                      } else if (book_type ==
+                          'NavigateToMotivationalBooks') {
+                        final ref = FirebaseStorage.instance
+                            .ref()
+                            .child('Books/Motivational/$fileName');
+                        String url = await ref.getDownloadURL();
+                        setState(() {
+                          urduPdfUrls = url;
+                        });
+                      }
 
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => FirebaseBookRead(
-                              url: urduPdfUrls,
-                              title: _files[index].name,
-                            )));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => FirebaseBookRead(
+                                url: urduPdfUrls,
+                                title: _files[index].name,
+                              )));
+                    },
+                    title: Text(_files[index].name),
+                      ),
+                    );
                   },
-                  title: Text(_files[index].name),
-                    ),
-                  );
-                },
+                ): Column(children: [
+              Lottie.asset('assets/animations/notAvailable.json',height: MediaQuery.of(context).size.height/6),
+              Text("We apologize books of this kind are not available.",style:Theme.of(context).textTheme.caption),
+              ],)
+              )
+,              
+          );
+        },)
+        
+        
               ),
-      ),
                 ),
               ],
             ),
           ),
         ],
       ),
-       bottomNavigationBar: isAdLoaded? Container(
-        decoration: BoxDecoration(color: AppColor.kgreyColor),
-        height: _bannerAd.size.height.toDouble(),
-        width: _bannerAd.size.width.toDouble(),
-        child:AdWidget(ad: _bannerAd) ,
-      ):SizedBox(),
+      //  bottomNavigationBar: isAdLoaded? Container(
+      //   decoration: BoxDecoration(color: AppColor.kgreyColor),
+      //   height: _bannerAd.size.height.toDouble(),
+      //   width: _bannerAd.size.width.toDouble(),
+      //   child:AdWidget(ad: _bannerAd) ,
+      // ):SizedBox(),
     );
   }
 
@@ -659,15 +692,16 @@ class _BookStoreState extends State<BookStore> {
     if (type == 'buildUrduDarsiBooks') {
       var files = await FirebaseStorage.instance
           .ref()
-          .child('Books/Islamic Books/Urdu/general/')
+          .child('Books/Islamic Books/Urdu/Darsi/')
           .listAll();
       setState(() {
         _files = files.items;
       });
+     
     } else if (type == 'buildUrduFathwaBooks') {
       var files = await FirebaseStorage.instance
           .ref()
-          .child('Books/Islamic Books/Urdu/general/')
+          .child('Books/Islamic Books/Urdu/Fathwa/')
           .listAll();
       setState(() {
         _files = files.items;
@@ -715,4 +749,31 @@ class _BookStoreState extends State<BookStore> {
     }
   }
 
+}
+class InternetConnectivityWidget extends StatelessWidget {
+  final AsyncSnapshot<ConnectivityResult> snapshot;
+  final Widget widget;
+  const InternetConnectivityWidget({super.key, required this.snapshot, required this.widget,});
+
+  @override
+  Widget build(BuildContext context) {
+    switch(snapshot.connectionState){
+      case ConnectionState.active:
+      final state = snapshot.data!;
+      switch(state){
+        case ConnectivityResult.none:
+        return Column(children: [
+              Lottie.asset('assets/animations/nointernet.json',height: MediaQuery.of(context).size.height/6),
+              SizedBox(height: 5,),
+              Text("No internet connection!.",style:Theme.of(context).textTheme.caption),
+              ],);
+              default:
+              return widget;
+      }
+      default:
+      return widget;
+
+    }
+    
+  }
 }

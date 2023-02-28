@@ -1,11 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:islamic_book_app/Model/data.dart';
+import 'package:islamic_book_app/Provider/continue_reading_provider.dart';
+import 'package:islamic_book_app/View/Firebase/Books/firebase_book_read.dart';
 import 'package:islamic_book_app/View/IslamicBooks/Books/book_read.dart';
 import 'package:islamic_book_app/View/IslamicBooks/Books/book_store.dart';
+import 'package:islamic_book_app/View/IslamicBooks/Books/books_categories.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Utility/colors.dart';
 import 'IslamicBooks/Books/book_detials.dart';
-import 'IslamicBooks/Languages/languages.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,53 +20,50 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String? url;
   var bookCategory;
   var index = 0;
   // static const likedkey ='liked_key';
   // static bool? liked ;
-
   // ads
-  late BannerAd _bannerAd;
-  bool isAdLoaded = false;
-  initBannerAd() {
-    _bannerAd = BannerAd(
-        size: AdSize.banner,
-        adUnitId: AdsId.kAdUnitId,
-        listener: BannerAdListener(
-          onAdLoaded: (ad) {
-            setState(() {
-              isAdLoaded = true;
-            });
-          },
-          onAdFailedToLoad: (ad, error) {},
-        ),
-        request: AdRequest());
-    _bannerAd.load();
-  }
-
+  // late BannerAd _bannerAd;
+  // bool isAdLoaded = false;
+  // initBannerAd() {
+  //   _bannerAd = BannerAd(
+  //       size: AdSize.banner,
+  //       adUnitId: AdsId.kAdUnitId,
+  //       listener: BannerAdListener(
+  //         onAdLoaded: (ad) {
+  //           setState(() {
+  //             isAdLoaded = true;
+  //           });
+  //         },
+  //         onAdFailedToLoad: (ad, error) {},
+  //       ),
+  //       request: AdRequest());
+  //   _bannerAd.load();
+  // }
   @override
   void initState() {
-    initBannerAd();
+    // final continueReadingProvider =
+    //     Provider.of<ContinueReadingProvider>(context, listen: false);
+    // Timer.periodic(Duration(seconds: 1), (timer) {
+    //   continueReadingProvider.getBookInfo;
+    // });
+    // getBookInfo();
 
-    // _restorePresisitedPrefrences();
+    print("Name::${url}");
+    // initBannerAd();
     // TODO: implement initState
     super.initState();
   }
 
-  // Future<void> _restorePresisitedPrefrences() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   var liked =await prefs.getBool(likedkey);
-  //   setState(() =>this.liked=liked!);
-  // }
-  //   Future<void> _getPresisitedPrefrences( ) async {
-  //     setState(() =>this.liked= !liked);
-  //   final prefs = await SharedPreferences.getInstance();
-  //   prefs.setBool(likedkey,liked);
-  // }
-
   @override
   Widget build(BuildContext context) {
+    final continueReadingProvider =
+        Provider.of<ContinueReadingProvider>(context, listen: true);
     var size = MediaQuery.of(context).size;
+    continueReadingProvider.getBookInfo();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(scaffoldBackgroundColor: Colors.white),
@@ -88,22 +90,116 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: size.height * .05,
                   ),
-                  RichText(
-                      text: TextSpan(
-                          style: Theme.of(context).textTheme.displaySmall,
-                          children: [
-                        TextSpan(
-                            text: "What are you \n",
-                            style: TextStyle(color: Colors.white)),
-                        TextSpan(
-                            text: "READING\n",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)),
-                        TextSpan(
-                            text: "today? \n",
-                            style: TextStyle(color: Colors.white))
-                      ])),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      continueReadingProvider.bookName != null
+                          ? Consumer<ContinueReadingProvider>(
+                              builder:
+                                  (BuildContext context, value, Widget? child) {
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                FirebaseBookRead(
+                                                    title: value.bookName,
+                                                    url: value.url)));
+                                    value.getBookInfo();
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: RichText(
+                                            textAlign: TextAlign.start,
+                                            text: TextSpan(
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline4,
+                                                children: [
+                                                  TextSpan(
+                                                    text: "Continue reading...",
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                    ),
+                                                  )
+                                                ])),
+                                      ),
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                9,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                1.2,
+                                        margin: EdgeInsets.all(12),
+                                        padding: EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                            color: AppColor.kgreyColor,
+                                            border: Border.all(width: 1),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(29))),
+                                        child: Center(
+                                          child: SingleChildScrollView(
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(Icons.insert_drive_file),
+                                                  Consumer<
+                                                          ContinueReadingProvider>(
+                                                      builder: (context, value2,
+                                                          child) {
+                                                    return Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: SingleChildScrollView(
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          child: Text(
+                                                              "${continueReadingProvider.bookName}")),
+                                                    );
+                                                  }),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            )
+                          : RichText(
+                              text: TextSpan(
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
+                                  children: [
+                                  TextSpan(
+                                      text: "What are you \n",
+                                      style: TextStyle(color: Colors.white)),
+                                  TextSpan(
+                                      text: "READING\n",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white)),
+                                  TextSpan(
+                                      text: "today? \n",
+                                      style: TextStyle(color: Colors.white))
+                                ])),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 30,
+                  ),
                   Column(
                     children: [
                       Row(
@@ -113,8 +209,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           //first
                           InkWell(
                             onTap: () {
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) => Languages()));
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Languages()));
+                                  builder: (context) => BooksCategories(
+                                        language: 'Urdu',
+                                      )));
                             },
 
                             // read islamic Book
@@ -248,14 +348,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: isAdLoaded
-            ? Container(
-                decoration: BoxDecoration(color: AppColor.kgreyColor),
-                height: _bannerAd.size.height.toDouble(),
-                width: _bannerAd.size.width.toDouble(),
-                child: AdWidget(ad: _bannerAd),
-              )
-            : SizedBox(),
       ),
     );
   }
@@ -385,15 +477,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     scrollDirection: Axis.horizontal,
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-                      child:Directionality(
+                      child: Directionality(
                         textDirection: TextDirection.rtl,
-
                         child: Text(
                           book.title,
-                          style: TextStyle(color: AppColor.kTextColor,
-                          fontWeight: FontWeight.bold,
+                          style: TextStyle(
+                            color: AppColor.kTextColor,
+                            fontWeight: FontWeight.bold,
                           ),
-                      
                         ),
                       ),
                       //  RichText(
@@ -473,7 +564,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 // borderRadius: BorderRadius.all(
                                 //   Radius.circular(15),
                                 // ),
-                          
+
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(15),
                                   topRight: Radius.circular(0),
@@ -528,4 +619,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  // Retrieve book information from local storage
+// Future<Map<String, String>> getBookInfo() async {
+//       final continueReadingProvider = Provider.of<ContinueReadingProvider>(context);
+
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   bookName = prefs.getString('bookName');
+//   url = prefs.getString('url');
+//   return {'bookName': bookName!, 'url': url!};
+// }
+
 }

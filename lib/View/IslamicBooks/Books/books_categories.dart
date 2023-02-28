@@ -65,7 +65,7 @@ class _BooksCategoriesState extends State<BooksCategories>
       backgroundColor: AppColor.kbgColor,
       appBar: AppBar(
         title: Text(
-          "Select ${widget.language} Category",
+          "Select Category",
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: AppColor.kgreyColor,
@@ -142,7 +142,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                                   
                                   Text(
                                     bookLanguage == 'Urdu'
-                                        ? 'تاریخی کتب'
+                                        ? 'جنرل کتب'
                                         : bookLanguage == 'English'
                                             ? 'Historical Books'
                                             : bookLanguage == 'Pashto'
@@ -284,7 +284,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                                   ),
                                   //"Tafseer",
                                   Text(
-                                    bookLanguage == 'Urdu' ? 'تفسیر'
+                                    bookLanguage == 'Urdu' ? 'تفاسیر القرآن'
                                      :bookLanguage == 'English' ? 'Tafseer'
                                       :bookLanguage == 'Pashto' ? 'تفسیر'
                                        :bookLanguage == 'Arabic' ? 'التفسير':'',
@@ -422,7 +422,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                                   ),
                                   //Fathwa Books
                                   Text(
-                                    bookLanguage == 'Urdu'?'فتویٰ'
+                                    bookLanguage == 'Urdu'?'فتویٰ جات'
                                      :bookLanguage == 'Pashto'?'فتوا'
                                       :bookLanguage == 'English'?'Fathwa'
                                        :bookLanguage == 'Arabic'?'فتوى':'',                                    style: TextStyle(
@@ -509,6 +509,7 @@ class _BooksCategoriesState extends State<BooksCategories>
                             width: MediaQuery.of(context).size.width / 2.5,
                           ),
                         )
+                   
                       ],
                     ),
                     SizedBox(),

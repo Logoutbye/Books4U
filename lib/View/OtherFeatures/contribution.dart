@@ -632,18 +632,14 @@ class _ContributionState extends State<Contribution>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
-        title: Text(
-          "    Opps...",
-          style: TextStyle(color: Colors.black),
+        title: Padding(
+          padding: EdgeInsets.only(left:24),
+          child: Text(
+            "Opps...",
+            style: TextStyle(color: Colors.black),
+          ),
         ),
         backgroundColor: AppColor.kgreyColor,
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back,
-                color:AppColor.kgreyColor ,
-              ),
-              onPressed: () {},
-            ),
         
       
       ),
